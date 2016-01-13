@@ -23,9 +23,8 @@ function errorDocuments(error) {
   }
 }
 export function fetchDocuments() {
-  return dispatch => { console.log(dispatch);
+  return dispatch => {
     dispatch(requestDocuments());
-
 
     return fetch('/documents.json')
         .then(response => response.json())

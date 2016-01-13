@@ -16,7 +16,6 @@ class App extends Component {
     return (
         <div>
           <Documents documents={documents} />
-          <button onClick={this.fetchDocuments}>Fetch docs</button>
         </div>
     );
   }
