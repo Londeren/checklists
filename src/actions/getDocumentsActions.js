@@ -1,5 +1,9 @@
 import fetch from 'isomorphic-fetch';
-import {DOCUMENT_FETCH_STARTED, DOCUMENT_FETCH_COMPLETED, DOCUMENT_FETCH_ERROR} from '../constants/actions';
+
+
+export const DOCUMENT_FETCH_STARTED = 'DOCUMENT_FETCH_STARTED';
+export const DOCUMENT_FETCH_COMPLETED = 'DOCUMENT_FETCH_COMPLETED';
+export const DOCUMENT_FETCH_ERROR = 'DOCUMENT_FETCH_ERROR';
 
 
 function requestDocuments() {

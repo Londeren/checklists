@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {DOCUMENT_FETCH_COMPLETED} from '../constants/actions';
+import {DOCUMENT_FETCH_COMPLETED} from '../actions/getDocumentsActions';
 
 const initialState = {
   documents: []
