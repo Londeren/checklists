@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
 class Lists extends Component {
   constructor(props) {
     super(props);
+
 
   }
 
@@ -12,6 +14,8 @@ class Lists extends Component {
     return (
         <div>
           Lists
+          <br />
+          {this.props.children}
         </div>
     );
   }
