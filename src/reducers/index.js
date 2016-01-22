@@ -1,21 +1,11 @@
 import { combineReducers } from 'redux';
 import { routeReducer } from 'redux-simple-router';
 import { DOCUMENT_FETCH_COMPLETED } from '../actions/getDocumentsActions';
+import topMenu from '../reducers/TopMenu';
 
 const initialState = {
-  documents: [],
-  topMenuItems: [
-    {
-      name: 'Templates',
-      link: '/templates',
-      isActive: false
-    },
-      {
-      name: 'Lists',
-      link: '/lists',
-      isActive: false
-    }
-  ]
+  documents: []
+
 };
 
 const documents = function(state = initialState.documents, action) {
@@ -28,15 +18,10 @@ const documents = function(state = initialState.documents, action) {
   }
 };
 
-const topMenuItems = function(state = initialState.topMenuItems, action) {
-  return state;
-};
-
-
 const rootReducer = combineReducers({
   routing: routeReducer,
-  documents,
-  topMenuItems
+  topMenu,
+  documents
 });
 
 export default rootReducer;

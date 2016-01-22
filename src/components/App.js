@@ -9,11 +9,9 @@ class App extends Component {
   }
 
   render() {
-
     return (
-
         <div>
-          <TopMenu items={this.props.topMenuItems} />
+          <TopMenu items={this.props.topMenu} />
 
           <div className="container main">
             <div className="row">
@@ -21,7 +19,6 @@ class App extends Component {
                 {this.props.children}
               </div>
             </div>
-
           </div>
         </div>
     );
