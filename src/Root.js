@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute } from 'react-router';
-import App from './App';
-import Lists from './Lists';
-import List from './List';
-import Templates from './Templates';
-import Template from './Template';
-import Documents from './Documents';
+import App from './components/App';
+import Lists from './components/Lists';
+import List from './components/List';
+import TemplatesIndex from './components/TemplatesIndex';
+import Templates from './components/Templates';
+import Template from './components/Template';
+import Documents from './components/Documents';
 
 
 
@@ -22,6 +23,7 @@ export default class Root extends Component {
                 <Route path="view/:listId" component={List} />
               </Route>
               <Route path="templates" component={Templates}>
+                <IndexRoute component={TemplatesIndex}/>
                 <Route path="view/:templateId" component={Template} />
               </Route>
             </Route>

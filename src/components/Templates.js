@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Documents from './Documents';
-import { fetchDocuments} from '../actions/getDocumentsActions';
 
 
 class Templates extends Component {
@@ -10,18 +8,12 @@ class Templates extends Component {
 
   }
 
-  componentWillMount() {
-    this.props.dispatch(fetchDocuments());
-  }
-
   render() {
     const {documents} = this.props;
 
     return (
         <div>
-          templates <br />
-          {this.props.children} <br />
-          <Documents documents={documents} />
+          {this.props.children}
         </div>
     );
   }
