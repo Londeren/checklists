@@ -4,9 +4,10 @@ import { Router, Route, IndexRoute } from 'react-router';
 import App from './components/App';
 import Lists from './components/Lists';
 import List from './components/List';
-import TemplatesIndex from './components/TemplatesIndex';
-import Templates from './components/Templates';
-import Template from './components/Template';
+import TemplatesIndex from './components/templates/TemplatesIndex';
+import TemplateCreate from './components/templates/TemplateCreate';
+import Templates from './components/templates/Templates';
+import Template from './components/templates/Template';
 import Documents from './components/Documents';
 
 
@@ -24,6 +25,7 @@ export default class Root extends Component {
               </Route>
               <Route path="templates" component={Templates}>
                 <IndexRoute component={TemplatesIndex}/>
+                <Route path="create" component={TemplateCreate} />
                 <Route path="view/:templateId" component={Template} />
               </Route>
             </Route>
