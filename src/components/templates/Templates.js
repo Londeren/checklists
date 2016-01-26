@@ -9,7 +9,6 @@ class Templates extends Component {
   }
 
   render() {
-    const {documents} = this.props;
 
     return (
         <div>
