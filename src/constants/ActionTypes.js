@@ -1,0 +1,1 @@
+export const TEMPLATE_ADD = 'TEMPLATE_ADD';

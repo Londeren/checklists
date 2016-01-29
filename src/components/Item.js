@@ -45,6 +45,7 @@ export default class Item extends Component {
   handleSubmit(e) {
     if(e.keyCode === ENTER)
     {
+      e.preventDefault();
       this.saveItem();
     }
   }

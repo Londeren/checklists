@@ -8,29 +8,29 @@ export default class TemplateForm extends Component {
     super(props);
 
     this.state = {
-      templateName: props.templateName,
-      items: props.items
+      templateName: props.templateName || '',
+      items: props.items || []
     };
 
-    this.saveAction = this.saveAction.bind(this);
-    this.updateItem = this.updateItem.bind(this);
-    this.addItem = this.addItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.setTemplateName = this.setTemplateName.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleUpdateItem = this.handleUpdateItem.bind(this);
+    this.handleAddItem = this.handleAddItem.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+    this.handleSetTemplateName = this.handleSetTemplateName.bind(this);
   }
 
-  saveAction() {
+  handleSave() {
     this.props.onSaveAction({
       templateName: this.state.templateName,
       items: this.state.items
     });
   }
 
-  setTemplateName(e) {
+  handleSetTemplateName(e) {
     this.setState({templateName: this.refs.templateName.value});
   }
 
-  updateItem(id = null) {
+  handleUpdateItem(id = null) {
     return item => {
       const items = this.state.items.map((singleItem) => {
         if(singleItem.id !== id)
@@ -49,14 +49,14 @@ export default class TemplateForm extends Component {
     };
   }
 
-  deleteItem(id) {
+  handleDeleteItem(id) {
     return () => {
       this.setState({items: this.state.items.filter((item) => item.id != id)});
     }
   }
 
 
-  addItem() {
+  handleAddItem() {
     return item => {
       this.setState({
         items: [...this.state.items, {
@@ -69,26 +69,24 @@ export default class TemplateForm extends Component {
   }
 
   render() {
-    let {onSaveAction} = this.props;
-
     let {templateName, items} = this.state;
 
     return (
-        <form onSubmit={this.saveAction}>
+        <form onSubmit={this.handleSave}>
           <fieldset className="form-group">
-            <input type="text" className="form-control" placeholder="Template name" ref="templateName" value={templateName} onChange={this.setTemplateName} />
+            <input type="text" className="form-control" placeholder="Template name" ref="templateName" value={templateName} onChange={this.handleSetTemplateName} autoFocus="true" tabindex="1"/>
           </fieldset>
 
           <fieldset className="form-group">
             {items.map(item => {
               return (
-                  <Item key={item.id} checked={item.done} name={item.name} onUpdateItem={this.updateItem(item.id)} onDeleteItem={this.deleteItem(item.id)} />
+                  <Item key={item.id} checked={item.done} name={item.name} onUpdateItem={this.handleUpdateItem(item.id)} onDeleteItem={this.handleDeleteItem(item.id)}/>
               );
             })}
-            <Item newItem checked={false} name="" onUpdateItem={this.addItem()} />
+            <Item newItem checked={false} name="" onUpdateItem={this.handleAddItem()} />
           </fieldset>
 
-          <button type="button" className="btn btn-primary">Add</button>
+          <button type="submit" className="btn btn-primary">Add</button>
         </form>
     );
   }

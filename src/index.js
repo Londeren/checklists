@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { syncHistory } from 'redux-simple-router';
 import thunk from 'redux-thunk';
 import Root from './containers/Root';
-import rootReducer from './reducers/index';
+import rootReducer from './reducers';
 const createHistory = require('history/lib/createHashHistory');
 
 const history = createHistory();

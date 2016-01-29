@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'redux-simple-router';
+import {addTemplate} from '../actions/Templates';
 import TemplateForm from '../components/templates/TemplateForm';
 
 
@@ -8,16 +9,18 @@ class TemplateCreate extends Component {
   constructor(props) {
     super(props);
 
+    this.add = this.add.bind(this);
   }
 
-  create(params) {
-    console.log('create', params);
+  add(params) {
+    this.props.dispatch(addTemplate(params.templateName, params.items));
+    this.props.dispatch(routeActions.push('/templates'));
   }
 
 
   render() {
     return (
-        <TemplateForm onSaveAction={this.create} templateName="name of template" items={[{id:'1', name: 'blabla', done: false}, {id:'asdfad-grfasd', name: 'blablsfadfa', done: true}]} />
+        <TemplateForm onSaveAction={this.add} templateName="" items={[]} />
     );
   }
 }
