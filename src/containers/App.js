@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TopMenu from './TopMenu';
+import TopMenu from '../components/TopMenu';
 
 
 class App extends Component {

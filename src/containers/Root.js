@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute } from 'react-router';
-import App from './components/App';
-import Lists from './components/Lists';
-import List from './components/List';
-import TemplatesIndex from './components/templates/TemplatesIndex';
-import TemplateCreate from './components/templates/TemplateCreate';
-import Templates from './components/templates/Templates';
-import Template from './components/templates/Template';
-import Documents from './components/Documents';
-
-
+import App from './App';
+import Lists from './Lists';
+import List from './List';
+import TemplatesIndex from './TemplatesIndex';
+import TemplateCreate from './TemplateCreate';
+import Templates from './Templates';
+import Template from './Template';
 
 
 export default class Root extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'redux-simple-router';
-import AddItemButton from '../AddItemButton';
+import AddItemButton from '../components/AddItemButton';
 
 
 class TemplatesIndex extends Component {

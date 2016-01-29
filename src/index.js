@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { syncHistory } from 'redux-simple-router';
 import thunk from 'redux-thunk';
-import Root from './Root';
+import Root from './containers/Root';
 import rootReducer from './reducers/index';
 const createHistory = require('history/lib/createHashHistory');
 

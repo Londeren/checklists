@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'redux-simple-router';
-import TemplateForm from './TemplateForm';
+import TemplateForm from '../components/templates/TemplateForm';
 
 
 class TemplateCreate extends Component {
