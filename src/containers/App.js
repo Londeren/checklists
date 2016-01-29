@@ -15,7 +15,7 @@ class App extends Component {
 
           <div className="container main">
             <div className="row">
-              <div className="col-sm-5">
+              <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-xs-12">
                 {this.props.children}
               </div>
             </div>
