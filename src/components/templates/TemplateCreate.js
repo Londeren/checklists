@@ -10,14 +10,14 @@ class TemplateCreate extends Component {
 
   }
 
-  create() {
-
+  create(params) {
+    console.log('create', params);
   }
 
 
   render() {
     return (
-        <TemplateForm onSaveAction={this.create} items={[{id:1, name: 'blabla', isDone: false}, {id:'asdfad-grfasd', name: 'blablsfadfa', isDone: true}]} />
+        <TemplateForm onSaveAction={this.create} templateName="name of template" items={[{id:'1', name: 'blabla', done: false}, {id:'asdfad-grfasd', name: 'blablsfadfa', done: true}]} />
     );
   }
 }

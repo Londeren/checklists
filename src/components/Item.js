@@ -1,45 +1,112 @@
 import React, { Component, PropTypes } from 'react';
 
+const ENTER = 13;
+
 export default class Item extends Component {
   constructor(props) {
     super(props);
 
-    this.updateItem = this.updateItem.bind(this);
-    this.changeItem = this.changeItem.bind(this);
+    this.state = {
+      checked: props.checked || false,
+      name: props.name || ''
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
+    this.saveItem = this.saveItem.bind(this);
   }
 
-  updateItem(e) {
-    const ENTER = 13;
+  saveItem() {
+    let {checked, name} = this.refs;
+    const {onUpdateItem, newItem} = this.props;
 
-    if(e.keyCode === ENTER)
+    checked = checked.checked;
+    name = name.value;
+
+    if(newItem)
     {
-      this.changeItem();
-    }
-  }
+      if(!name)
+        return;
 
-  changeItem() {
-    this.props.onUpdateItem({
-      checked: this.refs.checked.checked,
-      name: this.refs.name.value
+      this.setState({
+        checked: false,
+        name: ''
+      });
+    }
+
+    onUpdateItem({
+      checked,
+      name
     });
   }
 
+  handleSubmit(e) {
+    if(e.keyCode === ENTER)
+    {
+      this.saveItem();
+    }
+  }
+
+  handleChange() {
+    const {checked, name} = this.refs;
+
+    this.setState({
+      checked: checked.checked,
+      name: name.value
+    });
+  }
+
+  handleBlur() {
+    this.saveItem();
+  }
+
+  handleClickDelete() {
+    this.props.onDeleteItem();
+  }
+
+
   render() {
-    var {checked, name} = this.props;
+    var {checked, name} = this.state;
+
+    var deleteBlock = '';
+
+    if(typeof this.props.onDeleteItem !== 'undefined')
+      deleteBlock = (<span className="input-group-btn">
+        <button className="btn btn-secondary text-danger" type="button" onClick={this.handleClickDelete}>X</button>
+      </span>);
 
     return (
         <div className="input-group">
           <span className="input-group-addon">
-            <input type="checkbox" ref="checked" checked={checked} onChange={this.changeItem}/>
+            <input
+                type="checkbox"
+                ref="checked"
+                checked={checked}
+                onBlur={this.handleBlur}
+                onChange={this.handleChange}
+            />
           </span>
-          <input type="text" ref="name" className="form-control" placeholder="Add item" value={name} onKeyDown={this.updateItem} onChange={this.changeItem}/>
+          <input type="text"
+                 ref="name"
+                 className="form-control"
+                 placeholder="Add item"
+                 value={name}
+                 onBlur={this.handleBlur}
+                 onChange={this.handleChange}
+                 onKeyDown={this.handleSubmit}
+          />
+          {deleteBlock}
         </div>
     );
   }
 }
 
 Item.propTypes = {
+  newItem: PropTypes.bool,
   checked: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  onUpdateItem: PropTypes.func.isRequired
+  onUpdateItem: PropTypes.func.isRequired,
+  onDeleteItem: PropTypes.func
 };

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import {v4 as uniqueId}  from 'node-uuid';
 import Item from '../Item';
 
 
@@ -6,41 +7,88 @@ export default class TemplateForm extends Component {
   constructor(props) {
     super(props);
 
-    this.onSaveAction = this.onSaveAction.bind(this);
-    this.onUpdateItem = this.onUpdateItem.bind(this);
+    this.state = {
+      templateName: props.templateName,
+      items: props.items
+    };
+
+    this.saveAction = this.saveAction.bind(this);
+    this.updateItem = this.updateItem.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.setTemplateName = this.setTemplateName.bind(this);
   }
 
-  onSaveAction() {
+  saveAction() {
     this.props.onSaveAction({
-      templateName: this.refs.templateName.value,
-      items: this.props.items
+      templateName: this.state.templateName,
+      items: this.state.items
     });
   }
 
-  onUpdateItem(id = null) {
+  setTemplateName(e) {
+    this.setState({templateName: this.refs.templateName.value});
+  }
+
+  updateItem(id = null) {
     return item => {
-      this.props.items.push(item);
+      const items = this.state.items.map((singleItem) => {
+        if(singleItem.id !== id)
+        {
+          return singleItem;
+        }
+
+        return {
+          id,
+          done: item.checked,
+          name: item.name
+        }
+      });
+
+      this.setState({items});
+    };
+  }
+
+  deleteItem(id) {
+    return () => {
+      this.setState({items: this.state.items.filter((item) => item.id != id)});
+    }
+  }
+
+
+  addItem() {
+    return item => {
+      this.setState({
+        items: [...this.state.items, {
+          id: uniqueId(),
+          done: item.checked,
+          name: item.name
+        }]
+      })
     };
   }
 
   render() {
-    var {onSaveAction, templateName, items} = this.props;
+    let {onSaveAction} = this.props;
+
+    let {templateName, items} = this.state;
 
     return (
-        <form onSubmit={this.onSaveAction}>
+        <form onSubmit={this.saveAction}>
           <fieldset className="form-group">
-            <input type="text" className="form-control" ref="templateName" placeholder="Template name" value={templateName} />
+            <input type="text" className="form-control" placeholder="Template name" ref="templateName" value={templateName} onChange={this.setTemplateName} />
           </fieldset>
+
           <fieldset className="form-group">
             {items.map(item => {
               return (
-                  <Item key={item.id} checked={item.isDone} name={item.name} onUpdateItem={this.onUpdateItem(item.id)} />
+                  <Item key={item.id} checked={item.done} name={item.name} onUpdateItem={this.updateItem(item.id)} onDeleteItem={this.deleteItem(item.id)} />
               );
             })}
-            <Item checked={false} name="" onUpdateItem={this.onUpdateItem()} />
+            <Item newItem checked={false} name="" onUpdateItem={this.addItem()} />
           </fieldset>
 
-          <button type="submit" className="btn btn-primary">Add</button>
+          <button type="button" className="btn btn-primary">Add</button>
         </form>
     );
   }
@@ -52,6 +100,6 @@ TemplateForm.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    isDone: PropTypes.bool.isRequired
+    done: PropTypes.bool.isRequired
   }).isRequired).isRequired
 };
