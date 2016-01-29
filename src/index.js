@@ -1,19 +1,39 @@
+/* global __DEVTOOLS__ */
+
 import './styles/styles.scss';
 
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { syncHistory } from 'redux-simple-router';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { syncHistory } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import Root from './containers/Root';
 import rootReducer from './reducers';
 const createHistory = require('history/lib/createHashHistory');
+import DevTools from './containers/DevTools';
+
 
 const history = createHistory();
 const reduxRouterMiddleware = syncHistory(history);
-const createStoreWithMiddleware = applyMiddleware(thunk, reduxRouterMiddleware)(createStore);
+
+const storeEnhancers = [
+];
+
+if (__DEVTOOLS__) {
+  storeEnhancers.push(DevTools.instrument())
+}
+
+
+const createStoreWithMiddleware = compose(
+    applyMiddleware(thunk, reduxRouterMiddleware),
+    ...storeEnhancers
+)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
+
+if (__DEVTOOLS__) {
+  reduxRouterMiddleware.listenForReplays(store);
+}
 
 
 ReactDOM.render(

@@ -14,6 +14,12 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      },
+      '__DEVTOOLS__': process.env.DEVTOOLS === 'true' ? true : false
+    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {

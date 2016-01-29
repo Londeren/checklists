@@ -1,4 +1,4 @@
-import { UPDATE_LOCATION } from 'redux-simple-router'
+import { UPDATE_LOCATION } from 'react-router-redux'
 
 const topMenu = [
   {
@@ -20,7 +20,7 @@ export default function(state = topMenu, action) {
     case UPDATE_LOCATION:
       return state.map(item => {
         return Object.assign({}, item, {
-          isActive: action.location.pathname.slice(0, item.link.length) == item.link
+          isActive: action.payload.pathname.slice(0, item.link.length) == item.link
         });
       });
       return menu;
