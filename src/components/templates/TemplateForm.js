@@ -74,7 +74,7 @@ export default class TemplateForm extends Component {
     return (
         <form onSubmit={this.handleSave}>
           <fieldset className="form-group">
-            <input type="text" className="form-control" placeholder="Template name" ref="templateName" value={templateName} onChange={this.handleSetTemplateName} autoFocus="true" tabindex="1"/>
+            <input type="text" className="form-control" placeholder="Template name" ref="templateName" value={templateName} onChange={this.handleSetTemplateName} autoFocus="true" tabIndex="1"/>
           </fieldset>
 
           <fieldset className="form-group">

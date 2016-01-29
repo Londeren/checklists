@@ -97,6 +97,7 @@ export default class Item extends Component {
                  onBlur={this.handleBlur}
                  onChange={this.handleChange}
                  onKeyDown={this.handleSubmit}
+                 tabIndex="2"
           />
           {deleteBlock}
         </div>
