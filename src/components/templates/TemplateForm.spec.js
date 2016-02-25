@@ -7,11 +7,11 @@ import Item from '../Item';
 
 chai.use(spies);
 
-function setup() {
+function setup(templateName = '', items = []) {
   let props = {
     onSaveAction: chai.spy(),
-    templateName: "name",
-    items: []
+    templateName: templateName,
+    items: items
   };
 
   let renderer = TestUtils.createRenderer();
@@ -27,7 +27,7 @@ function setup() {
 
 describe('TemplateForm component', () => {
   it('should render correctly', () => {
-    const { output, props } = setup();
+    const { output } = setup();
 
     expect(output.type).to.equal('form');
 
@@ -41,7 +41,7 @@ describe('TemplateForm component', () => {
     expect(templateNameInput.props.type).to.equal('text');
     expect(templateNameInput.props.className).to.equal('form-control');
     expect(templateNameInput.props.placeholder).to.equal('Template name');
-    expect(templateNameInput.props.value).to.equal(props.templateName);
+    expect(templateNameInput.props.value).to.equal('');
     expect(templateNameInput.props.tabIndex).to.equal("1");
     expect(templateNameInput.props.autoFocus).to.equal("true");
     expect(templateNameInput.props.tabIndex).to.equal("1");
@@ -56,5 +56,15 @@ describe('TemplateForm component', () => {
     expect(submitButton.props.type).to.equal('submit');
     expect(submitButton.props.className).to.equal('btn btn-primary');
     expect(submitButton.props.children).to.equal('Add');
+  });
+
+  it('must change template name if input changed', () => {
+    const { props } = setup();
+
+    let templateForm = TestUtils.renderIntoDocument(<TemplateForm {...props} />);
+
+    templateForm.refs.templateName.value = "test";
+    TestUtils.Simulate.change(templateForm.refs.templateName);
+    expect(templateForm.state.templateName).to.equal("test");
   });
 });
