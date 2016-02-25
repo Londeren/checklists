@@ -20,10 +20,13 @@ export default class TemplateForm extends Component {
   }
 
   handleSave() {
-    this.props.onSaveAction({
-      templateName: this.state.templateName,
-      items: this.state.items
-    });
+    if(this.state.templateName.length !== 0)
+    {
+      this.props.onSaveAction({
+        templateName: this.state.templateName,
+        items: this.state.items
+      });
+    }
   }
 
   handleSetTemplateName(e) {
