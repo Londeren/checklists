@@ -18,10 +18,13 @@ function setup(templateName = '', items = []) {
   renderer.render(<TemplateForm {...props} />);
   let output = renderer.getRenderOutput();
 
+  let rendered = TestUtils.renderIntoDocument(<TemplateForm {...props} />);
+
   return {
     props,
     output,
-    renderer
+    renderer,
+    rendered
   }
 }
 
@@ -59,12 +62,71 @@ describe('TemplateForm component', () => {
   });
 
   it('must change template name if input changed', () => {
-    const { props } = setup();
+    let { rendered } = setup();
 
-    let templateForm = TestUtils.renderIntoDocument(<TemplateForm {...props} />);
-
-    templateForm.refs.templateName.value = "test";
-    TestUtils.Simulate.change(templateForm.refs.templateName);
-    expect(templateForm.state.templateName).to.equal("test");
+    rendered.refs.templateName.value = "test";
+    TestUtils.Simulate.change(rendered.refs.templateName);
+    expect(rendered.state.templateName).to.equal("test");
   });
+
+  it('must add item to state on call onUpdateItem on `addItem`', () => {
+    let { rendered } = setup();
+
+    let newItem = TestUtils.findRenderedComponentWithType(rendered, Item);
+
+    const addItem = {
+      checked: false,
+      name: 'first item'
+    };
+
+    newItem.props.onUpdateItem(addItem);
+
+    const [expected] = rendered.state.items;
+
+    expect(expected).to.include({
+      done: addItem.checked,
+      name: addItem.name
+    });
+  });
+
+  it('must insert added item to DOM', () => {
+    let { rendered } = setup();
+
+    let newItem = TestUtils.findRenderedComponentWithType(rendered, Item);
+    newItem.props.onUpdateItem({
+      checked: false,
+      name: 'first item'
+    });
+
+    const itemList = TestUtils.scryRenderedComponentsWithType(rendered, Item);
+
+    expect(itemList.length).equal(2);
+  });
+
+  it('must update state.items when item updated', () => {
+    const initialItem = {
+      id: 'first',
+      name: 'first item',
+      done: false
+    };
+
+    const updatedItem = {
+      checked: true,
+      name: 'done'
+    };
+
+    let { rendered } = setup('', [initialItem]);
+    let [newItem] = TestUtils.scryRenderedComponentsWithType(rendered, Item);
+    newItem.props.onUpdateItem(updatedItem);
+
+    const [expected] = rendered.state.items;
+
+    expect(expected).to.eql({
+      id: initialItem.id,
+      done: updatedItem.checked,
+      name: updatedItem.name
+    });
+  });
+
+  it('must delete Item component on delete item from state');
 });
