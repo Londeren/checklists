@@ -61,7 +61,7 @@ describe('TemplateForm component', () => {
     expect(submitButton.props.children).to.equal('Add');
   });
 
-  it('must change template name if input changed', () => {
+  it('should change template name if input changed', () => {
     let { rendered } = setup();
 
     rendered.refs.templateName.value = "test";
@@ -69,7 +69,7 @@ describe('TemplateForm component', () => {
     expect(rendered.state.templateName).to.equal("test");
   });
 
-  it('must add item to state on call onUpdateItem on `addItem`', () => {
+  it('should add item to state on call onUpdateItem on `addItem`', () => {
     let { rendered } = setup();
 
     let newItem = TestUtils.findRenderedComponentWithType(rendered, Item);
@@ -89,7 +89,7 @@ describe('TemplateForm component', () => {
     });
   });
 
-  it('must insert added item to DOM', () => {
+  it('should insert added item to DOM', () => {
     let { rendered } = setup();
 
     let newItem = TestUtils.findRenderedComponentWithType(rendered, Item);
@@ -103,7 +103,7 @@ describe('TemplateForm component', () => {
     expect(itemList.length).equal(2);
   });
 
-  it('must update state.items when item updated', () => {
+  it('should update state.items when item updated', () => {
     const initialItem = {
       id: 'first',
       name: 'first item',
@@ -128,5 +128,38 @@ describe('TemplateForm component', () => {
     });
   });
 
-  it('must delete Item component on delete item from state');
+  it('should delete Item component on delete item from state', () => {
+    const initialItem = {
+      id: 'first',
+      name: 'first item',
+      done: false
+    };
+
+    let { rendered } = setup('', [initialItem]);
+    let [newItem] = TestUtils.scryRenderedComponentsWithType(rendered, Item);
+    newItem.props.onDeleteItem();
+
+    let itemsAfterDelete = TestUtils.scryRenderedComponentsWithType(rendered, Item);
+
+    expect(itemsAfterDelete.length).to.equal(1);
+
+    expect(rendered.state.items.length).to.equal(0);
+  });
+
+  it('should call onSaveAction if length of template name is greater than 0', () => {
+    let { rendered } = setup();
+
+    let form = TestUtils.findRenderedDOMComponentWithTag(rendered, 'form');
+
+    TestUtils.Simulate.submit(form);
+
+    expect(rendered.props.onSaveAction).to.have.not.been.called();
+
+    rendered.refs.templateName.value = "test";
+    TestUtils.Simulate.change(rendered.refs.templateName);
+
+    TestUtils.Simulate.submit(form);
+
+    expect(rendered.props.onSaveAction).to.have.been.called.once();
+  });
 });
