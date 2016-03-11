@@ -2,7 +2,7 @@ import chai, {expect} from 'chai';
 import spies from 'chai-spies';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import Item from './Item';
+import Item, {ENTER} from './Item';
 
 chai.use(spies);
 
@@ -100,9 +100,47 @@ describe('Item component', () => {
     expect(rendered.state.name).to.equal("test");
   });
 
-  it('should change checked when ckeckbox changed');
+  it('should change checked when ckeckbox changed', () => {
+    const setupParams = {
+      checked: false,
+      name: 'test'
+    };
+    const { rendered } = setup(setupParams);
 
-  it('should call onUpdateItem when item updates with not empty name for new item');
+    rendered.refs.checked.checked = !setupParams.checked;
+    TestUtils.Simulate.change(rendered.refs.checked);
+    expect(rendered.state.checked).to.equal(!setupParams.checked);
+  });
+
+  it('should call onUpdateItem when item updates (onBlur or on press Enter) with not empty name for new item', () => {
+    let { rendered } = setup({
+      newItem: true,
+      name: "test"
+    });
+
+    TestUtils.Simulate.blur(rendered.refs.name);
+
+    expect(rendered.props.onUpdateItem).to.have.been.called.once();
+
+    expect(rendered.state).to.include({
+      checked: false,
+      name: ''
+    });
+
+
+    rendered.refs.name.value = "second test";
+    TestUtils.Simulate.change(rendered.refs.name);
+
+    TestUtils.Simulate.keyDown(rendered.refs.name, {keyCode: ENTER});
+
+    expect(rendered.props.onUpdateItem).to.have.been.called.twice();
+
+    expect(rendered.state).to.include({
+      checked: false,
+      name: ''
+    });
+
+  });
 
   it('should call onUpdateItem when item updates with any name for not new item');
 

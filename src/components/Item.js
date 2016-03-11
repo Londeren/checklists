@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-const ENTER = 13;
+export const ENTER = 13;
 
 export default class Item extends Component {
   constructor(props) {
