@@ -73,10 +73,12 @@ export default class Item extends Component {
 
     var deleteBlock = '';
 
-    if(typeof this.props.onDeleteItem !== 'undefined')
+    if(typeof this.props.onDeleteItem === 'function')
+    {
       deleteBlock = (<span className="input-group-btn">
         <button className="btn btn-secondary text-danger" type="button" onClick={this.handleClickDelete}>X</button>
       </span>);
+    }
 
     return (
         <div className="input-group">

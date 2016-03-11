@@ -45,7 +45,6 @@ describe('TemplateForm component', () => {
     expect(templateNameInput.props.className).to.equal('form-control');
     expect(templateNameInput.props.placeholder).to.equal('Template name');
     expect(templateNameInput.props.value).to.equal('');
-    expect(templateNameInput.props.tabIndex).to.equal("1");
     expect(templateNameInput.props.autoFocus).to.equal("true");
     expect(templateNameInput.props.tabIndex).to.equal("1");
 
