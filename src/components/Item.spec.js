@@ -121,7 +121,6 @@ describe('Item component', () => {
     TestUtils.Simulate.blur(rendered.refs.name);
 
     expect(rendered.props.onUpdateItem).to.have.been.called.once();
-
     expect(rendered.state).to.include({
       checked: false,
       name: ''
@@ -134,12 +133,28 @@ describe('Item component', () => {
     TestUtils.Simulate.keyDown(rendered.refs.name, {keyCode: ENTER});
 
     expect(rendered.props.onUpdateItem).to.have.been.called.twice();
-
     expect(rendered.state).to.include({
       checked: false,
       name: ''
     });
 
+  });
+
+  it('should not call onUpdateItem when new item updates without name', () => {
+    const setupParams = {
+      newItem: true,
+      checked: true,
+      name: ""
+    };
+    let { rendered } = setup(setupParams);
+
+    TestUtils.Simulate.blur(rendered.refs.name);
+
+    expect(rendered.props.onUpdateItem).to.have.not.been.called();
+    expect(rendered.state).to.include({
+      checked: setupParams.checked,
+      name: setupParams.name
+    });
   });
 
   it('should call onUpdateItem when item updates with any name for not new item');
