@@ -157,7 +157,29 @@ describe('Item component', () => {
     });
   });
 
-  it('should call onUpdateItem when item updates with any name for not new item');
+  it('should call onUpdateItem when item updates with any (empty) name for not new item', () => {
+    const setupParams = {
+      checked: true,
+      name: ""
+    };
+    let { rendered } = setup(setupParams);
 
-  it('should call onDeleteItem when delete button has been clicked');
+    TestUtils.Simulate.keyDown(rendered.refs.name, {keyCode: ENTER});
+
+    expect(rendered.props.onUpdateItem).to.have.been.called.once();
+  });
+
+  it('should call onDeleteItem when delete button has been clicked', () => {
+    const setupParams = {
+      checked: true,
+      name: "test",
+      onDeleteItem: chai.spy()
+    };
+    let { rendered } = setup(setupParams);
+
+    const deleteButton = TestUtils.findRenderedDOMComponentWithTag(rendered, 'button');
+    TestUtils.Simulate.click(deleteButton);
+
+    expect(rendered.props.onDeleteItem).to.have.been.called.once();
+  });
 });
