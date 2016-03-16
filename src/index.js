@@ -17,8 +17,7 @@ import DevTools from './containers/DevTools';
 const history = createHistory();
 const reduxRouterMiddleware = syncHistory(history);
 
-const storeEnhancers = [
-];
+const storeEnhancers = [];
 
 if (__DEVTOOLS__) {
   storeEnhancers.push(DevTools.instrument())

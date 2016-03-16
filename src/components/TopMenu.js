@@ -14,7 +14,7 @@ export default class TopMenu extends Component {
             {items.map(function(item) {
               return (
                   <li key={item.link} className={'nav-item' + (item.isActive ? ' active' : '')}>
-                    <Link to={item.link} className="nav-link">{item.name}</Link>
+                    <Link to={item.link} className="nav-link" activeClassName="active">{item.name}</Link>
                   </li>
               );
             })}
