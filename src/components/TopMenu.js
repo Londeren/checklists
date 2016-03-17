@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 export default class TopMenu extends Component {
@@ -23,3 +23,11 @@ export default class TopMenu extends Component {
     );
   }
 }
+
+TopMenu.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    isActive: PropTypes.bool.isRequired
+  }).isRequired).isRequired
+};
