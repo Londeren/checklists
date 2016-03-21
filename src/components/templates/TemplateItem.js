@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import {getRouteUrl, ROUTE_TEMPLATES_VIEW_TEMPLATE } from '../../constants/routes';
+import {ROUTE_TEMPLATES_VIEW_TEMPLATE } from '../../constants/routes';
+import {getRouteUrl} from '../../services/routes';
 
 export default class TemplateItem extends Component {
 

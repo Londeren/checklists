@@ -3,7 +3,7 @@ import {addTemplate} from './Templates';
 import {TEMPLATE_ADD} from '../constants/ActionTypes';
 
 
-describe('templates actions', () => {
+describe('Templates actions', () => {
 
   describe('addTemplate', () => {
 

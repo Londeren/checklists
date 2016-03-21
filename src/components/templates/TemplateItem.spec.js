@@ -4,7 +4,8 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import TemplateItem from './TemplateItem';
 import { Link } from 'react-router';
-import {getRouteUrl, ROUTE_TEMPLATES_VIEW_TEMPLATE } from '../../constants/routes';
+import {ROUTE_TEMPLATES_VIEW_TEMPLATE } from '../../constants/routes';
+import {getRouteUrl} from '../../services/routes';
 
 
 chai.use(spies);
