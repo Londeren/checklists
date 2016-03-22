@@ -1,5 +1,5 @@
 import {v4 as uniqueId}  from 'node-uuid';
-import {TEMPLATE_ADD} from '../constants/ActionTypes';
+import {TEMPLATE_ADD, TEMPLATE_UPDATE} from '../constants/ActionTypes';
 
 
 export function addTemplate(name, items) {
@@ -9,4 +9,13 @@ export function addTemplate(name, items) {
     name,
     items
   };
+}
+
+export function updateTemplate(id, name, items) {
+  return {
+    type: TEMPLATE_UPDATE,
+    id,
+    name,
+    items
+  }
 }
