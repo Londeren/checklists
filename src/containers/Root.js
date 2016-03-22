@@ -10,6 +10,7 @@ import TemplatesIndex from './TemplatesIndex';
 import TemplateCreate from './TemplateCreate';
 import Templates from './Templates';
 import Template from './Template';
+import NotFound from './NotFound';
 import DevTools from '../containers/DevTools';
 
 
@@ -37,6 +38,7 @@ export default class Root extends Component {
                   <Route path="view/:templateId" component={Template} />
                 </Route>
               </Route>
+              <Route path="*" status={404} component={NotFound}/>
             </Router>
 
           </div>
