@@ -108,7 +108,7 @@ describe('Item component', () => {
     const { rendered } = setup(setupParams);
 
     rendered.refs.checked.checked = !setupParams.checked;
-    TestUtils.Simulate.change(rendered.refs.checked);
+    TestUtils.Simulate.click(rendered.refs.checked);
     expect(rendered.state.checked).to.equal(!setupParams.checked);
   });
 
@@ -138,6 +138,17 @@ describe('Item component', () => {
       name: ''
     });
 
+  });
+
+  it("should call onUpdateItem when item's checkbox clicked", () => {
+    let { rendered } = setup({
+      checked: false,
+      name: "checkbox test"
+    });
+
+    TestUtils.Simulate.click(rendered.refs.checked);
+
+    expect(rendered.props.onUpdateItem).to.have.been.called.once();
   });
 
   it('should not call onUpdateItem when new item updates without name', () => {
