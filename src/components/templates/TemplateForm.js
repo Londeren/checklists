@@ -89,7 +89,7 @@ export default class TemplateForm extends Component {
             <Item newItem checked={false} name="" onUpdateItem={this.handleAddItem()} />
           </fieldset>
 
-          <button type="submit" className="btn btn-primary">Add</button>
+          <button type="submit" className="btn btn-primary">Save</button>
         </form>
     );
   }

@@ -57,7 +57,7 @@ describe('TemplateForm component', () => {
     expect(submitButton.type).to.equal('button');
     expect(submitButton.props.type).to.equal('submit');
     expect(submitButton.props.className).to.equal('btn btn-primary');
-    expect(submitButton.props.children).to.equal('Add');
+    expect(submitButton.props.children).to.equal('Save');
   });
 
   it('should change template name if input changed', () => {
