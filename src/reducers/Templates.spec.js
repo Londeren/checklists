@@ -48,6 +48,64 @@ describe('Templates reducer', () => {
     ]);
   });
 
-  it('should handle TEMPLATE_UPDATE');
+  it('should handle TEMPLATE_UPDATE', () => {
+    expect(reducer([], {
+      type: TEMPLATE_UPDATE,
+      id: '1',
+      name: 'test',
+      items: []
+    })).to.be.eql([]);
+
+    expect(reducer([{
+      id: '1',
+      name: 'test',
+      items: []
+    }], {
+      type: TEMPLATE_UPDATE,
+      id: '1',
+      name: 'new name',
+      items: [{name: 'new item'}]
+    })).to.be.eql([
+      {
+        id: '1',
+        name: 'new name',
+        items: [{name: 'new item'}]
+      }
+    ]);
+
+    expect(reducer([{
+      id: '1',
+      name: 'test',
+      items: []
+    }], {
+      type: TEMPLATE_UPDATE,
+      id: '2',
+      name: 'new name',
+      items: [{name: 'new item'}]
+    })).to.be.eql([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ]);
+
+    expect(reducer([{
+      id: '1',
+      name: 'test',
+      items: [{name: 'first item'}]
+    }], {
+      type: TEMPLATE_UPDATE,
+      id: '1',
+      name: 'new name',
+      items: []
+    })).to.be.eql([
+      {
+        id: '1',
+        name: 'new name',
+        items: []
+      }
+    ]);
+  });
 
 });
