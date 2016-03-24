@@ -108,7 +108,7 @@ describe('Item component', () => {
     const { rendered } = setup(setupParams);
 
     rendered.refs.checked.checked = !setupParams.checked;
-    TestUtils.Simulate.click(rendered.refs.checked);
+    TestUtils.Simulate.change(rendered.refs.checked);
     expect(rendered.state.checked).to.equal(!setupParams.checked);
   });
 
@@ -146,7 +146,7 @@ describe('Item component', () => {
       name: "checkbox test"
     });
 
-    TestUtils.Simulate.click(rendered.refs.checked);
+    TestUtils.Simulate.change(rendered.refs.checked);
 
     expect(rendered.props.onUpdateItem).to.have.been.called.once();
   });

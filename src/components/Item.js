@@ -14,7 +14,7 @@ export default class Item extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.handleCheckboxClick = this.handleCheckboxClick.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
     this.saveItem = this.saveItem.bind(this);
   }
@@ -64,7 +64,7 @@ export default class Item extends Component {
     this.saveItem();
   }
 
-  handleCheckboxClick() {
+  handleCheckboxChange() {
     this.handleChange();
     this.saveItem();
   }
@@ -94,7 +94,7 @@ export default class Item extends Component {
                 ref="checked"
                 checked={checked}
                 onBlur={this.handleBlur}
-                onClick={this.handleCheckboxClick}
+                onChange={this.handleCheckboxChange}
             />
           </span>
           <input type="text"
