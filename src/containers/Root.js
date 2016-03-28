@@ -6,6 +6,8 @@ import { Router, Route, IndexRoute } from 'react-router';
 import App from './App';
 import Lists from './Lists';
 import List from './List';
+import ListsIndex from './ListsIndex';
+import ListCreate from './ListCreate';
 import TemplatesIndex from './TemplatesIndex';
 import TemplateCreate from './TemplateCreate';
 import Templates from './Templates';
@@ -30,6 +32,8 @@ export default class Root extends Component {
             <Router history={this.props.history}>
               <Route path="/" component={App}>
                 <Route path="lists" component={Lists}>
+                  <IndexRoute component={ListsIndex}/>
+                  <Route path="create" component={ListCreate} />
                   <Route path="view/:listId" component={List} />
                 </Route>
                 <Route path="templates" component={Templates}>

@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { routeActions } from 'react-router-redux';
 
 
-class Lists extends Component {
+class ListCreate extends Component {
   constructor(props) {
     super(props);
 
+    this.add = this.add.bind(this);
+  }
+
+  add(params) {
 
   }
 
-  render() {
 
+  render() {
     return (
-        <div>
-          {this.props.children}
-        </div>
+        <div>ListCreate</div>
     );
   }
 }
 
 export default connect((state) => {
   return {...state};
-})(Lists);
+})(ListCreate);
