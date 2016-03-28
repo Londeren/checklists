@@ -19,7 +19,7 @@ class TemplatesIndex extends Component {
   render() {
     return (
       <div>
-        <AddItemButton onClickAction={this.addItem}>Create template</AddItemButton>
+        <AddItemButton onClickAction={this.addItem} buttonAdditionalClasses="btn-lg">Create template</AddItemButton>
 
         <TemplateList items={this.props.templates} />
       </div>
