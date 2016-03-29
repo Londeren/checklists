@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
-import AddItemButton from '../components/AddItemButton';
 import TemplateList from '../components/templates/TemplateList';
+import AddListLink from '../components/lists/AddListLink';
 
 
 class ListsIndex extends Component {
@@ -10,21 +10,26 @@ class ListsIndex extends Component {
     super(props);
 
     this.addItem = this.addItem.bind(this);
+
+    this.templates = this.props.templates.map(tpl => {
+      return {
+        id: tpl.id,
+        name: tpl.name
+      };
+    });
   }
 
-  addItem() {
-    this.props.dispatch(routeActions.push('/lists/create'));
+  addItem(templateId) {
+    this.props.dispatch(routeActions.push(`/lists/create/${templateId}`));
   }
 
   render() {
     return (
-      <div>
-        <AddItemButton onClickAction={this.addItem}>Create list</AddItemButton>
-
-      </div>
+      <AddListLink onAdd={this.addItem} templateList={this.templates}/>
     );
   }
 }
+
 
 export default connect((state) => {
   return {...state};

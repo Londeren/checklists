@@ -33,7 +33,7 @@ export default class Root extends Component {
               <Route path="/" component={App}>
                 <Route path="lists" component={Lists}>
                   <IndexRoute component={ListsIndex}/>
-                  <Route path="create" component={ListCreate} />
+                  <Route path="create/:templateId" component={ListCreate} />
                   <Route path="view/:listId" component={List} />
                 </Route>
                 <Route path="templates" component={Templates}>
