@@ -25,7 +25,6 @@ export default class AddListLink extends Component {
   }
 
   render() {
-    console.log(this.props.templateList);
     return (
       <div className="row">
         <div className="col-xs-7">
@@ -39,7 +38,6 @@ export default class AddListLink extends Component {
         <div className="col-xs-5">
           <AddItemButton onClickAction={this.addItem}>2. Create list</AddItemButton>
         </div>
-
       </div>
     );
   }
