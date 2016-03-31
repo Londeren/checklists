@@ -17,10 +17,14 @@ function setup(templateList = []) {
   renderer.render(<AddListLink {...props} />);
   let output = renderer.getRenderOutput();
 
+  let rendered = TestUtils.renderIntoDocument(<AddListLink {...props} />);
+
+
   return {
     props,
     output,
-    renderer
+    renderer,
+    rendered
   }
 }
 
@@ -77,9 +81,56 @@ describe('AddListLink component', () => {
     }
   });
 
-  it('should set state.templateId if template changed', () => {
+  it('should set `state.templateId` if template changed', () => {
+    const setupTemplateList = [
+      {
+        id: "1",
+        name: "first"
+      },
+      {
+        id: "2",
+        name: "second"
+      }
+    ];
 
+    let { rendered } = setup(setupTemplateList);
+    let select = TestUtils.findRenderedDOMComponentWithTag(rendered, 'select');
+
+    select.value = setupTemplateList[1].id;
+    TestUtils.Simulate.change(select);
+
+    expect(rendered.state.templateId).to.equal(setupTemplateList[1].id);
   });
+
+  it('should call function `onAdd` if templateId greather than 0', () => {
+    const setupTemplateList = [
+      {
+        id: "1",
+        name: "first"
+      },
+      {
+        id: "2",
+        name: "second"
+      }
+    ];
+
+    let { rendered } = setup(setupTemplateList);
+    let select = TestUtils.findRenderedDOMComponentWithTag(rendered, 'select');
+
+    rendered.addItem();
+
+    expect(rendered.props.onAdd).to.have.not.been.called();
+
+
+    select.value = setupTemplateList[1].id;
+    TestUtils.Simulate.change(select);
+
+    rendered.addItem();
+
+    expect(rendered.props.onAdd).to.have.been.called.once();
+  });
+
+
 
 
 });
