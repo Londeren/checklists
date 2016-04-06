@@ -4,6 +4,7 @@ import { routeActions } from 'react-router-redux';
 import TemplateList from '../components/templates/TemplateList';
 import AddListLink from '../components/lists/AddListLink';
 import {addList} from '../actions/Lists';
+import isEmpty from 'lodash/isEmpty';
 import {templates} from '../services/templates';
 
 class ListsIndex extends Component {
@@ -21,12 +22,12 @@ class ListsIndex extends Component {
   }
 
   addItem(templateId) {
-    this.props.dispatch(routeActions.push(`/lists/create/${templateId}`));
-
     const tpl = templates(this.props.templates).getById(templateId);
 
-    this.props.dispatch(addList(tpl));
-
+    if (!isEmpty(tpl)) {
+      this.props.dispatch(routeActions.push(`/lists/create/${templateId}`));
+      this.props.dispatch(addList(tpl));
+    }
   }
 
   render() {
