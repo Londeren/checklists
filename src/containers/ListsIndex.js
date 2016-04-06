@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import TemplateList from '../components/templates/TemplateList';
 import AddListLink from '../components/lists/AddListLink';
-
+import {addList} from '../actions/Lists';
+import {templates} from '../services/templates';
 
 class ListsIndex extends Component {
   constructor(props) {
@@ -21,11 +22,16 @@ class ListsIndex extends Component {
 
   addItem(templateId) {
     this.props.dispatch(routeActions.push(`/lists/create/${templateId}`));
+
+    const tpl = templates(this.props.templates).getById(templateId);
+
+    this.props.dispatch(addList(tpl));
+
   }
 
   render() {
     return (
-      <AddListLink onAdd={this.addItem} templateList={this.templates}/>
+      <AddListLink onAdd={this.addItem} templateList={this.templates} />
     );
   }
 }
