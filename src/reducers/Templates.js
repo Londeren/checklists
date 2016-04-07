@@ -1,4 +1,4 @@
-import {TEMPLATE_ADD, TEMPLATE_UPDATE} from '../constants/ActionTypes';
+import {TEMPLATE_ADD, TEMPLATE_UPDATE, TEMPLATE_FETCH_COMPLETED} from '../constants/ActionTypes';
 
 export default function(state = [], action) {
   switch(action.type)
@@ -24,6 +24,11 @@ export default function(state = [], action) {
         return template
       });
       break;
+    case TEMPLATE_FETCH_COMPLETED:
+      return [
+        ...state,
+        ...action.templates
+      ];
     default:
       return state;
   }

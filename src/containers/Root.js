@@ -15,6 +15,8 @@ import Template from './Template';
 import NotFound from './NotFound';
 import DevTools from '../containers/DevTools';
 
+import {loadTemplates} from '../services/templates';
+
 
 export default class Root extends Component {
 
@@ -26,27 +28,27 @@ export default class Root extends Component {
     }
 
     return (
-        <Provider store={this.props.store}>
-          <div>
-            {devTools}
-            <Router history={this.props.history}>
-              <Route path="/" component={App}>
-                <Route path="lists" component={Lists}>
-                  <IndexRoute component={ListsIndex}/>
-                  <Route path="create/:templateId" component={ListCreate} />
-                  <Route path="view/:listId" component={List} />
-                </Route>
-                <Route path="templates" component={Templates}>
-                  <IndexRoute component={TemplatesIndex}/>
-                  <Route path="create" component={TemplateCreate} />
-                  <Route path="view/:templateId" component={Template} />
-                </Route>
+      <Provider store={this.props.store}>
+        <div>
+          {devTools}
+          <Router history={this.props.history}>
+            <Route path="/" component={App}>
+              <Route path="templates" component={Templates}>
+                <IndexRoute component={TemplatesIndex} onEnter={loadTemplates(this.props.store)} />
+                <Route path="create" component={TemplateCreate} />
+                <Route path="view/:templateId" component={Template} />
               </Route>
-              <Route path="*" status={404} component={NotFound}/>
-            </Router>
+              <Route path="lists" component={Lists}>
+                <IndexRoute component={ListsIndex} />
+                <Route path="create/:templateId" component={ListCreate} />
+                <Route path="view/:listId" component={List} />
+              </Route>
+            </Route>
+            <Route path="*" status={404} component={NotFound} />
+          </Router>
 
-          </div>
-        </Provider>
+        </div>
+      </Provider>
     );
   }
 }
