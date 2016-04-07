@@ -5,7 +5,7 @@ import TemplateList from '../components/templates/TemplateList';
 import AddListLink from '../components/lists/AddListLink';
 import {addList} from '../actions/Lists';
 import isEmpty from 'lodash/isEmpty';
-import {templates} from '../services/templates';
+import {Templates} from '../services/templates';
 
 class ListsIndex extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class ListsIndex extends Component {
   }
 
   addItem(templateId) {
-    const tpl = templates(this.props.templates).getById(templateId);
+    const tpl = Templates(this.props.templates).getById(templateId);
 
     if (!isEmpty(tpl)) {
       this.props.dispatch(routeActions.push(`/lists/create/${templateId}`));

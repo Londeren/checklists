@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 
-export function templates(templates) {
+export function Templates(templates) {
   const items = templates;
 
   return {
