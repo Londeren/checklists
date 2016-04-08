@@ -11,7 +11,7 @@ describe('Templates actions', () => {
       const name = 'Template name';
       const items = [
         {
-          "name": "first item"
+          name: 'first item'
         }
       ];
       const expectedAction = {

@@ -32,12 +32,12 @@ describe('AddListLink component', () => {
   it('should render correctly', () => {
     const setupTemplateList = [
       {
-        id: "1",
-        name: "first"
+        id: '1',
+        name: 'first'
       },
       {
-        id: "2",
-        name: "second"
+        id: '2',
+        name: 'second'
       }
     ];
 
@@ -84,12 +84,12 @@ describe('AddListLink component', () => {
   it('should set `state.templateId` if template changed', () => {
     const setupTemplateList = [
       {
-        id: "1",
-        name: "first"
+        id: '1',
+        name: 'first'
       },
       {
-        id: "2",
-        name: "second"
+        id: '2',
+        name: 'second'
       }
     ];
 
@@ -105,12 +105,12 @@ describe('AddListLink component', () => {
   it('should call function `onAdd` if templateId greather than 0', () => {
     const setupTemplateList = [
       {
-        id: "1",
-        name: "first"
+        id: '1',
+        name: 'first'
       },
       {
-        id: "2",
-        name: "second"
+        id: '2',
+        name: 'second'
       }
     ];
 
@@ -129,8 +129,5 @@ describe('AddListLink component', () => {
 
     expect(rendered.props.onAdd).to.have.been.called.once();
   });
-
-
-
 
 });

@@ -32,7 +32,7 @@ function setup({newItem = false, checked = false, name = '', onDeleteItem} = {})
 describe('Item component', () => {
   it('should render correctly with name and checked status', () => {
     const setupParams = {
-      name: "test",
+      name: 'test',
       checked: true,
       onDeleteItem: chai.spy()
     };
@@ -63,7 +63,7 @@ describe('Item component', () => {
         expect(nameInput.props.className).to.equal('form-control');
         expect(nameInput.props.placeholder).to.equal('Add item');
         expect(nameInput.props.value).to.equal(setupParams.name);
-        expect(nameInput.props.tabIndex).to.equal("2");
+        expect(nameInput.props.tabIndex).to.equal('2');
 
         expect(deleteSpan.type).to.equal('span');
         expect(deleteSpan.props.className).to.equal('input-group-btn');
@@ -83,7 +83,7 @@ describe('Item component', () => {
 
   it('should render correctly as new item (without delete button)', () => {
     const setupParamsWithoutDeleteButton = {
-      name: "test"
+      name: 'test'
     };
     const { output: outputWithoutDelete } = setup(setupParamsWithoutDeleteButton);
 
@@ -95,9 +95,9 @@ describe('Item component', () => {
   it('should change name when input changed', () => {
     const { rendered } = setup();
 
-    rendered.refs.name.value = "test";
+    rendered.refs.name.value = 'test';
     TestUtils.Simulate.change(rendered.refs.name);
-    expect(rendered.state.name).to.equal("test");
+    expect(rendered.state.name).to.equal('test');
   });
 
   it('should change checked when ckeckbox changed', () => {
@@ -115,7 +115,7 @@ describe('Item component', () => {
   it('should call onUpdateItem when item updates (onBlur or on press Enter) with not empty name for new item', () => {
     let { rendered } = setup({
       newItem: true,
-      name: "test"
+      name: 'test'
     });
 
     TestUtils.Simulate.blur(rendered.refs.name);
@@ -127,7 +127,7 @@ describe('Item component', () => {
     });
 
 
-    rendered.refs.name.value = "second test";
+    rendered.refs.name.value = 'second test';
     TestUtils.Simulate.change(rendered.refs.name);
 
     TestUtils.Simulate.keyDown(rendered.refs.name, {keyCode: ENTER});
@@ -140,10 +140,10 @@ describe('Item component', () => {
 
   });
 
-  it("should call onUpdateItem when item's checkbox clicked", () => {
+  it('should call onUpdateItem when item\'s checkbox clicked', () => {
     let { rendered } = setup({
       checked: false,
-      name: "checkbox test"
+      name: 'checkbox test'
     });
 
     TestUtils.Simulate.change(rendered.refs.checked);
@@ -155,7 +155,7 @@ describe('Item component', () => {
     const setupParams = {
       newItem: true,
       checked: true,
-      name: ""
+      name: ''
     };
     let { rendered } = setup(setupParams);
 
@@ -171,7 +171,7 @@ describe('Item component', () => {
   it('should call onUpdateItem when item updates with any (empty) name for not new item', () => {
     const setupParams = {
       checked: true,
-      name: ""
+      name: ''
     };
     let { rendered } = setup(setupParams);
 
@@ -183,7 +183,7 @@ describe('Item component', () => {
   it('should call onDeleteItem when delete button has been clicked', () => {
     const setupParams = {
       checked: true,
-      name: "test",
+      name: 'test',
       onDeleteItem: chai.spy()
     };
     let { rendered } = setup(setupParams);
