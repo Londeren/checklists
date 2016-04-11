@@ -25,6 +25,18 @@ export function updateTemplate(id, name, items) {
   }
 }
 
+export function fetchTemplates() {
+  return dispatch => {
+    dispatch(requestTemplates());
+
+    return fetch('/templates.json')
+      .then(response => response.json())
+      .then(json =>
+        dispatch(receiveTemplates(json.templates))
+      )
+      .catch(error => dispatch(errorTemplates(error)));
+  }
+}
 
 function requestTemplates() {
   return {
@@ -32,7 +44,7 @@ function requestTemplates() {
   }
 }
 
-function receiveTemplates(json) { console.log(json);
+function receiveTemplates(json) {
   return {
     type: TEMPLATE_FETCH_COMPLETED,
     templates: json
@@ -46,15 +58,4 @@ function errorTemplates(error) {
     error: error
   }
 }
-export function fetchTemplates() {
-  return dispatch => {
-    dispatch(requestTemplates());
 
-    return fetch('/templates.json')
-      .then(response => response.json())
-      .then(json =>
-        dispatch(receiveTemplates(json.templates))
-      )
-      .catch(error => dispatch(errorTemplates(error)));
-  }
-}

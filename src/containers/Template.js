@@ -4,6 +4,9 @@ import { routeActions } from 'react-router-redux';
 import {updateTemplate} from '../actions/Templates';
 import TemplateForm from '../components/templates/TemplateForm';
 import NotFound from './NotFound';
+import {Templates} from '../services/templates';
+import isEmpty from 'lodash/isEmpty';
+
 
 
 class Template extends Component {
@@ -11,7 +14,7 @@ class Template extends Component {
     super(props);
 
     const {templateId} = this.props.params;
-    this.template = this.props.templates.find(t => t.id == templateId);
+    this.template = Templates(this.props.templates).getById(templateId);
 
     this.update = this.update.bind(this);
   }
@@ -26,7 +29,7 @@ class Template extends Component {
 
 
   render() {
-    if(this.template === undefined) {
+    if(isEmpty(this.template)) {
       return (<NotFound />);
     }
 

@@ -40,7 +40,6 @@ export default class Root extends Component {
               </Route>
               <Route path="lists" component={Lists}>
                 <IndexRoute component={ListsIndex} />
-                <Route path="create/:templateId" component={ListCreate} />
                 <Route path="view/:listId" component={List} />
               </Route>
             </Route>

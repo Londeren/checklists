@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
-import TemplateList from '../components/templates/TemplateList';
+import isEmpty from 'lodash/isEmpty';
+
 import AddListLink from '../components/lists/AddListLink';
 import {addList} from '../actions/Lists';
-import isEmpty from 'lodash/isEmpty';
 import {Templates} from '../services/templates';
+import {ROUTE_LISTS_VIEW_LIST } from '../constants/routes';
+import {getRouteUrl} from '../services/routes';
+
 
 class ListsIndex extends Component {
   constructor(props) {
@@ -25,8 +28,10 @@ class ListsIndex extends Component {
     const tpl = Templates(this.props.templates).getById(templateId);
 
     if (!isEmpty(tpl)) {
-      this.props.dispatch(routeActions.push(`/lists/create/${templateId}`));
-      this.props.dispatch(addList(tpl));
+      const addListAction = addList(tpl);
+
+      this.props.dispatch(addListAction);
+      this.props.dispatch(routeActions.push(getRouteUrl(ROUTE_LISTS_VIEW_LIST, {listId: addListAction.id})));
     }
   }
 
