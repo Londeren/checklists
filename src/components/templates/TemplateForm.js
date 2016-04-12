@@ -8,7 +8,7 @@ export default class TemplateForm extends Component {
     super(props);
 
     this.state = {
-      templateName: props.templateName || '',
+      name: props.name || '',
       items: props.items || []
     };
 
@@ -20,17 +20,17 @@ export default class TemplateForm extends Component {
   }
 
   handleSave() {
-    if(this.state.templateName.length !== 0)
+    if(this.state.name.length !== 0)
     {
       this.props.onSaveAction({
-        templateName: this.state.templateName,
+        name: this.state.name,
         items: this.state.items
       });
     }
   }
 
   handleSetTemplateName(e) {
-    this.setState({templateName: this.refs.templateName.value});
+    this.setState({name: this.refs.name.value});
   }
 
   handleUpdateItem(id = null) {
@@ -72,12 +72,12 @@ export default class TemplateForm extends Component {
   }
 
   render() {
-    let {templateName, items} = this.state;
+    let {name, items} = this.state;
 
     return (
         <form onSubmit={this.handleSave}>
           <fieldset className="form-group">
-            <input type="text" className="form-control" placeholder="Template name" ref="templateName" value={templateName} onChange={this.handleSetTemplateName} autoFocus="true" tabIndex="1"/>
+            <input type="text" className="form-control" placeholder="Template name" ref="name" value={name} onChange={this.handleSetTemplateName} autoFocus="true" tabIndex="1"/>
           </fieldset>
 
           <fieldset className="form-group">
@@ -97,7 +97,7 @@ export default class TemplateForm extends Component {
 
 TemplateForm.propTypes = {
   onSaveAction: PropTypes.func.isRequired,
-  templateName: PropTypes.string,
+  name: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

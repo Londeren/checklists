@@ -12,7 +12,6 @@ export default function(state = [], action) {
           items: action.items
         }
       ];
-      break;
     case TEMPLATE_UPDATE:
       return state.map((template) => {
         if (template.id === action.id) {
@@ -23,7 +22,6 @@ export default function(state = [], action) {
         }
         return template
       });
-      break;
     case TEMPLATE_FETCH_COMPLETED:
       return [
         ...state,

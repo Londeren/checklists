@@ -6,7 +6,8 @@ import TemplateForm from '../components/templates/TemplateForm';
 import NotFound from './NotFound';
 import {Templates} from '../services/templates';
 import isEmpty from 'lodash/isEmpty';
-
+import {ROUTE_TEMPLATES_TEMPLATES} from '../constants/routes';
+import {getRouteUrl} from '../services/routes';
 
 
 class Template extends Component {
@@ -23,18 +24,18 @@ class Template extends Component {
   update(params) {
     const {templateId} = this.props.params;
 
-    this.props.dispatch(updateTemplate(templateId, params.templateName, params.items));
-    this.props.dispatch(routeActions.push('/templates'));
+    this.props.dispatch(updateTemplate(templateId, params.name, params.items));
+    this.props.dispatch(routeActions.push(getRouteUrl(ROUTE_TEMPLATES_TEMPLATES)));
   }
 
 
   render() {
-    if(isEmpty(this.template)) {
+    if (isEmpty(this.template)) {
       return (<NotFound />);
     }
 
     return (
-      <TemplateForm onSaveAction={this.update} templateName={this.template.name} items={this.template.items} />
+      <TemplateForm onSaveAction={this.update} name={this.template.name} items={this.template.items} />
     );
   }
 }

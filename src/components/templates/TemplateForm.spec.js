@@ -63,9 +63,9 @@ describe('TemplateForm component', () => {
   it('should change template name if input changed', () => {
     let { rendered } = setup();
 
-    rendered.refs.templateName.value = "test";
-    TestUtils.Simulate.change(rendered.refs.templateName);
-    expect(rendered.state.templateName).to.equal("test");
+    rendered.refs.name.value = "test";
+    TestUtils.Simulate.change(rendered.refs.name);
+    expect(rendered.state.name).to.equal("test");
   });
 
   it('should add item to state on call onUpdateItem on `addItem`', () => {
@@ -154,8 +154,8 @@ describe('TemplateForm component', () => {
 
     expect(rendered.props.onSaveAction).to.have.not.been.called();
 
-    rendered.refs.templateName.value = "test";
-    TestUtils.Simulate.change(rendered.refs.templateName);
+    rendered.refs.name.value = "test";
+    TestUtils.Simulate.change(rendered.refs.name);
 
     TestUtils.Simulate.submit(form);
 
