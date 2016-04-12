@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import TemplateForm from '../components/templates/TemplateForm';
+import {updateList} from '../actions/Lists';
+import ListForm from '../components/lists/ListForm';
 import NotFound from './NotFound';
 import {Templates} from '../services/templates';
+import {ROUTE_LISTS_LISTS } from '../constants/routes';
+import {getRouteUrl} from '../services/routes';
 
 
 class List extends Component {
@@ -15,11 +18,14 @@ class List extends Component {
     const {listId} = this.props.params;
     this.list = Templates(this.props.lists).getById(listId);
 
-    this.add = this.add.bind(this);
+    this.update = this.update.bind(this);
   }
 
-  add(params) {
+  update(params) {
+    const {listId} = this.props.params;
 
+    this.props.dispatch(updateList(listId, params.name, params.items));
+    this.props.dispatch(routeActions.push(getRouteUrl(ROUTE_LISTS_LISTS)));
   }
 
 
@@ -29,7 +35,7 @@ class List extends Component {
     }
 
     return (
-      <TemplateForm onSaveAction={this.add} templateName={this.list.name} items={this.list.items} />
+      <ListForm onSaveAction={this.update} name={this.list.name} items={this.list.items} />
     );
   }
 }

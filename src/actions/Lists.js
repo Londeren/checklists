@@ -1,5 +1,5 @@
 import {v4 as uniqueId}  from 'node-uuid';
-import {LIST_ADD} from '../constants/ActionTypes';
+import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
 
 
 export function addList({id, name, items}) {
@@ -10,4 +10,13 @@ export function addList({id, name, items}) {
     name,
     items
   };
+}
+
+export function updateList(id, name, items) {
+  return {
+    type: LIST_UPDATE,
+    id,
+    name,
+    items
+  }
 }
