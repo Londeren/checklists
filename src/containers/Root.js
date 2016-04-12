@@ -7,7 +7,6 @@ import App from './App';
 import Lists from './Lists';
 import List from './List';
 import ListsIndex from './ListsIndex';
-import ListCreate from './ListCreate';
 import TemplatesIndex from './TemplatesIndex';
 import TemplateCreate from './TemplateCreate';
 import Templates from './Templates';
