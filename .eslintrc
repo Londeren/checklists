@@ -15,7 +15,13 @@
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2
   },
+  "globals"   : {
+    /* MOCHA */
+    "describe"   : false,
+    "it"         : false
+  },
   "plugins": [
     "react"
-  ]
+  ],
+  "extends": ["eslint:recommended"]
 }
