@@ -29,7 +29,7 @@ export default class ListForm extends Component {
     }
   }
 
-  handleSetTemplateName(e) {
+  handleSetTemplateName() {
     this.setState({name: this.refs.name.value});
   }
 

@@ -3,6 +3,14 @@ import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
 
 
 export function addList({id, name, items}) {
+  items = items.map(item => {
+    return {
+      id: uniqueId(),
+      name: item.name,
+      done: item.done
+    }
+  });
+
   return {
     type: LIST_ADD,
     id: uniqueId(),

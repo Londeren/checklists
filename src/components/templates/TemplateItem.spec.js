@@ -31,8 +31,8 @@ function setup(id, name, itemsCount) {
 describe('TemplateItem component', () => {
   it('should render correctly', () => {
 
-    const id = "1";
-    const name = "test";
+    const id = '1';
+    const name = 'test';
     const itemsCount = 2;
 
     const { output } = setup(id, name, itemsCount);

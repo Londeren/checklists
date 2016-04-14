@@ -27,33 +27,33 @@ describe('TemplateList component', () => {
   it('should render correctly', () => {
     const setupItems = [
       {
-        id: "1",
-        name: "first",
+        id: '1',
+        name: 'first',
         items: [
           {
-            id: "1.1",
-            name: "first option 1",
+            id: '1.1',
+            name: 'first option 1',
             done: false
           }
         ]
       },
       {
-        id: "2",
-        name: "second",
+        id: '2',
+        name: 'second',
         items: [
           {
-            id: "2.1",
-            name: "second option 1",
+            id: '2.1',
+            name: 'second option 1',
             done: false
           },
           {
-            id: "2.2",
-            name: "second option 2",
+            id: '2.2',
+            name: 'second option 2',
             done: true
           },
           {
-            id: "2.3",
-            name: "second option 3",
+            id: '2.3',
+            name: 'second option 3',
             done: false
           }
         ]

@@ -45,8 +45,8 @@ describe('ListForm component', () => {
     expect(templateNameInput.props.className).to.equal('form-control');
     expect(templateNameInput.props.placeholder).to.equal('Template name');
     expect(templateNameInput.props.value).to.equal('');
-    expect(templateNameInput.props.autoFocus).to.equal("true");
-    expect(templateNameInput.props.tabIndex).to.equal("1");
+    expect(templateNameInput.props.autoFocus).to.equal('true');
+    expect(templateNameInput.props.tabIndex).to.equal('1');
 
     let firstItem = fieldsetItems.props.children[1];
     expect(firstItem.type).to.equal(Item);
@@ -63,9 +63,9 @@ describe('ListForm component', () => {
   it('should change template name if input changed', () => {
     let { rendered } = setup();
 
-    rendered.refs.name.value = "test";
+    rendered.refs.name.value = 'test';
     TestUtils.Simulate.change(rendered.refs.name);
-    expect(rendered.state.name).to.equal("test");
+    expect(rendered.state.name).to.equal('test');
   });
 
   it('should add item to state on call onUpdateItem on `addItem`', () => {
@@ -154,7 +154,7 @@ describe('ListForm component', () => {
 
     expect(rendered.props.onSaveAction).to.have.not.been.called();
 
-    rendered.refs.name.value = "test";
+    rendered.refs.name.value = 'test';
     TestUtils.Simulate.change(rendered.refs.name);
 
     TestUtils.Simulate.submit(form);

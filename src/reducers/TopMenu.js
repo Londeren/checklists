@@ -23,8 +23,7 @@ export default function(state = topMenu, action) {
           isActive: action.payload.pathname.slice(0, item.link.length) == item.link
         });
       });
-      return menu;
     default:
       return state;
   }
-};
+}
