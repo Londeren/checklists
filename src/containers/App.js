@@ -1,7 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TopMenu from '../components/TopMenu';
 
+const propTypes = {
+  topMenu: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    isActive: PropTypes.bool.isRequired
+}).isRequired).isRequired,
+  children: PropTypes.object
+};
 
 class App extends Component {
   constructor(props) {
@@ -28,3 +36,5 @@ class App extends Component {
 export default connect((state) => {
   return {...state};
 })(App);
+
+App.propTypes = propTypes;
