@@ -4,6 +4,7 @@ import { routeActions } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import AddListLink from '../components/lists/AddListLink';
+import ListList from '../components/lists/ListList';
 import {addList} from '../actions/Lists';
 import {Templates} from '../services/templates';
 import {ROUTE_LISTS_VIEW_LIST } from '../constants/routes';
@@ -37,7 +38,10 @@ class ListsIndex extends Component {
 
   render() {
     return (
-      <AddListLink onAdd={this.addItem} templateList={this.templates} />
+      <div>
+        <AddListLink onAdd={this.addItem} templateList={this.templates} />
+        <ListList items={this.props.lists} />
+      </div>
     );
   }
 }
