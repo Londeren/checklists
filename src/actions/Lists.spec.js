@@ -6,9 +6,7 @@ import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
 
 
 describe('Lists actions', () => {
-
   describe('addList', () => {
-
     it('should create action with type LIST_ADD', () => {
       const setupAddList = {
         id: '1',
@@ -39,8 +37,26 @@ describe('Lists actions', () => {
   });
 
   describe('updateTemplate', () => {
+    it('should create action with type LIST_UPDATE', () => {
+      const setupUpdateList = {
+        id: '1',
+        name: 'Template name',
+        items: [{
+          id: '1.1',
+          name: 'item name',
+          done: true
+        }]
+      };
 
-    it('should create action with type LIST_UPDATE');
+      const expectedAction = {
+        type: LIST_UPDATE,
+        id: setupUpdateList.id,
+        name: setupUpdateList.name,
+        items: setupUpdateList.items
+      };
+
+      expect(updateList(setupUpdateList.id, setupUpdateList.name, setupUpdateList.items)).to.include(expectedAction);
+    });
 
   });
 
