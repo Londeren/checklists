@@ -1,7 +1,7 @@
 import chai, {expect} from 'chai';
 import spies from 'chai-spies';
 import reducer from './Templates';
-import {TEMPLATE_ADD, TEMPLATE_UPDATE} from '../constants/ActionTypes';
+import {TEMPLATE_ADD, TEMPLATE_UPDATE, TEMPLATE_FETCH_COMPLETED} from '../constants/ActionTypes';
 
 chai.use(spies);
 
@@ -104,6 +104,32 @@ describe('Templates reducer', () => {
         id: '1',
         name: 'new name',
         items: []
+      }
+    ]);
+  });
+
+  it('should handle TEMPLATE_FETCH_COMPLETED', () => {
+    expect(reducer([{
+      id: '1',
+      name: 'test',
+      items: []
+    }], {
+      type: TEMPLATE_FETCH_COMPLETED,
+      templates: [{
+        id: '2',
+        name: 'test2',
+        items: [{name: 'first item'}]
+      }]
+    })).to.be.eql([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      },
+      {
+        id: '2',
+        name: 'test2',
+        items: [{name: 'first item'}]
       }
     ]);
   });
