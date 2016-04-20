@@ -1,28 +1,15 @@
 import { UPDATE_LOCATION } from 'react-router-redux'
+import {topMenuInitialItems} from '../constants/TopMenu';
 
-const topMenu = [
-  {
-    name: 'Templates',
-    link: '/templates',
-    isActive: false
-  },
-  {
-    name: 'Lists',
-    link: '/lists',
-    isActive: false
-  }
-];
+export default function(state = topMenuInitialItems, action) {
 
-export default function(state = topMenu, action) {
-
-  switch(action.type)
-  {
+  switch (action.type) {
     case UPDATE_LOCATION:
       return state.map(item => {
         return Object.assign({}, item, {
           isActive: action.payload.pathname.slice(0, item.link.length) == item.link
         });
-      });
+      }).slice();
     default:
       return state;
   }
