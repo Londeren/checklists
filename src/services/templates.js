@@ -1,12 +1,9 @@
 import find from 'lodash/find';
 import {fetchTemplates} from '../actions/Templates';
+import {Items} from './items';
 
 export function Templates(templates) {
-  const items = templates;
-
-  return {
-    getById: id => find(items, tpl => tpl.id === id)
-  }
+  return Items(templates);
 }
 
 export function loadTemplates(store) {
