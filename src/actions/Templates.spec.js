@@ -4,7 +4,7 @@ import nock from 'nock';
 import {expect} from 'chai';
 
 import {BASE_PATH} from '../../config';
-import {addTemplate, updateTemplate, fetchTemplates} from './Templates';
+import {addTemplate, updateTemplate, fetchTemplates} from 'Templates';
 import {TEMPLATE_ADD, TEMPLATE_UPDATE,
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR} from '../constants/ActionTypes';
 
