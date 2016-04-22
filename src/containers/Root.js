@@ -18,6 +18,12 @@ import {loadTemplates} from '../services/templates';
 
 
 export default class Root extends Component {
+  constructor(props) {
+    super(props);
+
+    // load templates on start
+    loadTemplates(this.props.store)();
+  }
 
   render() {
     let devTools = '';
@@ -33,7 +39,7 @@ export default class Root extends Component {
           <Router history={this.props.history}>
             <Route path="/" component={App}>
               <Route path="templates" component={Templates}>
-                <IndexRoute component={TemplatesIndex} onEnter={loadTemplates(this.props.store)} />
+                <IndexRoute component={TemplatesIndex} />
                 <Route path="create" component={TemplateCreate} />
                 <Route path="view/:templateId" component={Template} />
               </Route>
