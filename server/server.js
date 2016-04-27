@@ -1,11 +1,9 @@
-import express from 'express';
+import koa from 'koa';
 
-const app = express();
+const app = koa();
 
-app.get('/api', function (req, res) {
-  res.send('API is running');
+app.use(function *(){
+  this.body = 'Hello World';
 });
 
-app.listen(3001, function(){
-  console.log('Express server listening on port 3001');
-});
+app.listen(3001);
