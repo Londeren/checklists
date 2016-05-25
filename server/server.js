@@ -1,9 +1,10 @@
-import koa from 'koa';
+import Koa from 'koa';
+import router from './router';
 
-const app = koa();
+const app = new Koa();
 
-app.use(function *(){
-  this.body = 'Hello World';
+app.use(router.routes());
+
+app.listen(3001, function() {
+  console.log('Start listening http://localhost:3001/');
 });
-
-app.listen(3001);
