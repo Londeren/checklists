@@ -1,16 +1,16 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
-var appConfig = require('./config');
+var webpackConfig = require('./webpack.config');
+var config = require('./config');
 
-new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
+new WebpackDevServer(webpack(webpackConfig), {
+  publicPath: webpackConfig.output.publicPath,
   hot: true,
   historyApiFallback: true
-}).listen(3000, 'localhost', function (err, result) {
+}).listen(config.get('dev_server_port'), 'localhost', function (err, result) {
   if (err) {
     console.log(err);
   }
 
-  console.log('Listening at ' + appConfig.BASE_PATH);
+  console.log('Listening at ' + config.get('base_path'));
 });

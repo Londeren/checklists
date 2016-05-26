@@ -29,15 +29,16 @@ module.exports = {
   module: {
     loaders: [
       {
-      test: /\.js$/,
-      loaders: ['react-hot', 'babel-loader'],
-      include: path.join(__dirname, 'src')
-    },
+        test: /\.js$/,
+        loaders: ['react-hot', 'babel-loader'],
+        include: path.join(__dirname, 'src')
+      },
       {
         test: /(\.css|\.scss)$/,
         include: path.join(__dirname, 'src'),
         loader: ExtractTextPlugin.extract('style', 'css!sass')
-      }
+      },
+      {test: /\.json$/, loader: 'json'}
     ]
   }
 };

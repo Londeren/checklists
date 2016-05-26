@@ -1,6 +1,6 @@
 import {v4 as uniqueId}  from 'node-uuid';
 import fetch from 'isomorphic-fetch';
-import {BASE_PATH} from '../../config';
+import config from '../../config/config.json';
 import {
   TEMPLATE_ADD,
   TEMPLATE_UPDATE,
@@ -30,7 +30,7 @@ export function fetchTemplates() {
   return dispatch => {
     dispatch(requestTemplates());
 
-    return fetch(`${BASE_PATH}/templates.json`)
+    return fetch(`${config.base_path}/templates.json`)
       .then(response => response.json())
       .then(json =>
         dispatch(receiveTemplates(json.templates))

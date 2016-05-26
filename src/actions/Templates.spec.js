@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import {expect} from 'chai';
 
-import {BASE_PATH} from '../../config';
+import config from '../../config';
 import {addTemplate, updateTemplate, fetchTemplates} from './Templates';
 import {TEMPLATE_ADD, TEMPLATE_UPDATE,
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR} from '../constants/ActionTypes';
@@ -80,7 +80,7 @@ describe('Templates actions', () => {
       };
       //</editor-fold>
 
-      nock(BASE_PATH)
+      nock(config.get('base_path'))
         .get('/templates.json')
         .reply(200, setupTemplates);
 
