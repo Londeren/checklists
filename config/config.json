@@ -1,4 +1,7 @@
 {
   "base_path": "http://localhost:3000",
-  "dev_server_port": 3000
+  "dev_server_port": 3000,
+  "backend": {
+    "port": 3001
+  }
 }

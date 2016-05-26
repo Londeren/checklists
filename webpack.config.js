@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './src/index'
+    './frontend/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -31,11 +31,11 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['react-hot', 'babel-loader'],
-        include: path.join(__dirname, 'src')
+        include: path.join(__dirname, 'frontend')
       },
       {
         test: /(\.css|\.scss)$/,
-        include: path.join(__dirname, 'src'),
+        include: path.join(__dirname, 'frontend'),
         loader: ExtractTextPlugin.extract('style', 'css!sass')
       },
       {test: /\.json$/, loader: 'json'}
