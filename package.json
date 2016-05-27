@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Checklists based on templates",
   "scripts": {
-    "backend": "node backend/index.js",
+    "backend": "NODE_ENV=development node backend/index.js",
     "start": "node server.js | npm run backend",
     "start:devtools": "DEVTOOLS=true node server.js | npm run backend",
     "lint": "eslint frontend",
