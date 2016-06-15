@@ -10,4 +10,4 @@ const db = mongoose.connection;
 
 db.on('error', log.error);
 
-export default db;
+export {db, mongoose};

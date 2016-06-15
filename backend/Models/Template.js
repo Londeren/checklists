@@ -8,6 +8,6 @@ const templateSchema = mongoose.Schema({
   items: [Item.schema]
 });
 
-const Template = mongoose.Model('Template', templateSchema);
+const Template = mongoose.model('Template', templateSchema);
 
 export default Template;

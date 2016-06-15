@@ -2,7 +2,7 @@ import Koa from 'koa';
 import router from './router';
 import config from '../config';
 import logger from './libs/logger';
-import db from './libs/db';
+import {db} from './libs/db';
 
 const log = logger(module);
 const app = new Koa();
