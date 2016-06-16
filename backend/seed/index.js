@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import {db, mongoose} from '../libs/db';
-import Item from '../Models/Item';
-import Template from '../Models/Template';
+import Item from '../models/Item';
+import Template from '../models/Template';
 import templates from './templates.json';
 
 
