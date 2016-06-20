@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import Template from './models/Template';
+import Api from './http/controllers/Api';
 
 const router = new Router()
   .get('/', function(ctx, next) {
@@ -10,9 +10,7 @@ const router = new Router()
 const apiRouter = new Router({
   prefix: '/api'
 })
-  .get('/templates', async ctx => {
-    ctx.body = await Template.find().exec();
-  })
+  .get('/templates', Api.templates)
   .get('/lists', function(ctx, next) {
     ctx.body = 'Lists';
   });
