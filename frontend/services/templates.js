@@ -1,4 +1,3 @@
-import find from 'lodash/find';
 import {fetchTemplates} from '../actions/Templates';
 import {Items} from './items';
 

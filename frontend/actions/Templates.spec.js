@@ -6,7 +6,7 @@ import {expect} from 'chai';
 import config from '../../config';
 import {addTemplate, updateTemplate, fetchTemplates} from './Templates';
 import {TEMPLATE_ADD, TEMPLATE_UPDATE,
-  TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR} from '../constants/ActionTypes';
+  TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED} from '../constants/ActionTypes';
 
 
 const middlewares = [thunk];
@@ -37,7 +37,7 @@ describe('Templates actions', () => {
   describe('updateTemplate', () => {
 
     it('should create an action to update a template', () => {
-      const id = "1";
+      const id = '1';
       const name = 'Template name';
       const items = [
         {
@@ -66,9 +66,9 @@ describe('Templates actions', () => {
       const setupTemplates = {
         'templates': [
           {
-            "id": '328398ba-c578-48b4-9129-6ec70f787de6',
-            "name": 'Practical Assurance',
-            "items": [
+            id: '328398ba-c578-48b4-9129-6ec70f787de6',
+            name: 'Practical Assurance',
+            items: [
               {
                 id: '7251d6df-10d6-4ca5-892e-f21ede975033',
                 name: 'Drive Garden',

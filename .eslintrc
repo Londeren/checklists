@@ -18,7 +18,8 @@
   "globals"   : {
     /* MOCHA */
     "describe"   : false,
-    "it"         : false
+    "it"         : false,
+    "afterEach" : false,
   },
   "plugins": [
     "react"

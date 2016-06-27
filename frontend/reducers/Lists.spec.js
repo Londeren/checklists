@@ -1,5 +1,4 @@
-import chai, {expect} from 'chai';
-import spies from 'chai-spies';
+import {expect} from 'chai';
 import reducer from './Lists';
 import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
 

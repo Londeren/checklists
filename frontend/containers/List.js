@@ -7,7 +7,7 @@ import {updateList} from '../actions/Lists';
 import ListForm from '../components/lists/ListForm';
 import NotFound from './NotFound';
 import {Templates} from '../services/templates';
-import {ROUTE_LISTS_LISTS } from '../constants/routes';
+import {ROUTE_LISTS_LISTS} from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
 
 

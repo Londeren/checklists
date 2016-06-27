@@ -1,4 +1,3 @@
-import configureMockStore from 'redux-mock-store';
 import {expect} from 'chai';
 
 import {addList, updateList} from './Lists';
