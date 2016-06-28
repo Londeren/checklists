@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 
@@ -21,3 +21,7 @@ class Templates extends Component {
 export default connect((state) => {
   return {...state};
 })(Templates);
+
+Templates.propTypes = {
+  children: PropTypes.node
+};

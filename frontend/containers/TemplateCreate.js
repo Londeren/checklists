@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import {addTemplate} from '../actions/Templates';
@@ -29,3 +29,7 @@ class TemplateCreate extends Component {
 export default connect((state) => {
   return {...state};
 })(TemplateCreate);
+
+TemplateCreate.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};

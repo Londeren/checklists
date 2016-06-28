@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
@@ -17,7 +17,8 @@ class ListsIndex extends Component {
 
     this.addItem = this.addItem.bind(this);
 
-    this.templates = this.props.templates.map(tpl => {
+    this.templates = this.props.templates;
+    this.templates = this.templates.map(tpl => {
       return {
         id: tpl.id,
         name: tpl.name
@@ -50,3 +51,27 @@ class ListsIndex extends Component {
 export default connect((state) => {
   return {...state};
 })(ListsIndex);
+
+ListsIndex.propTypes = {
+  templates: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }).isRequired
+    ).isRequired
+  }).isRequired).isRequired,
+  lists: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      done: PropTypes.bool.isRequired
+    }).isRequired).isRequired
+  }).isRequired).isRequired,
+  dispatch: PropTypes.func.isRequired
+};

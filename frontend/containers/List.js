@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
@@ -43,3 +43,21 @@ class List extends Component {
 export default connect((state) => {
   return {...state};
 })(List);
+
+List.propTypes = {
+  params: PropTypes.shape({
+    listId: PropTypes.string.isRequired
+  }).isRequired,
+  lists: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }).isRequired).isRequired
+    }).isRequired
+  ).isRequired,
+  dispatch: PropTypes.func.isRequired
+};

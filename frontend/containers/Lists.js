@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 
@@ -22,3 +22,7 @@ class Lists extends Component {
 export default connect((state) => {
   return {...state};
 })(Lists);
+
+Lists.propTypes = {
+  children: PropTypes.node
+};
