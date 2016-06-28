@@ -30,7 +30,7 @@ export function fetchTemplates() {
   return dispatch => {
     dispatch(requestTemplates());
 
-    return fetch(`${config.base_path}/templates.json`)
+    return fetch(`${config.base_path}/api/templates`)
       .then(response => response.json())
       .then(json =>
         dispatch(receiveTemplates(json.templates))

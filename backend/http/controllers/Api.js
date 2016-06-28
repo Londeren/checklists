@@ -9,6 +9,6 @@ export default class Api {
       throw new HttpError(404, 'Templates not found');
     }
 
-    return ctx.body = templates;
+    return ctx.body = {templates};
   }
 }

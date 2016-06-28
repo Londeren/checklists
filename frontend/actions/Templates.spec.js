@@ -81,7 +81,7 @@ describe('Templates actions', () => {
       //</editor-fold>
 
       nock(config.get('base_path'))
-        .get('/templates.json')
+        .get('/api/templates')
         .reply(200, setupTemplates);
 
       const expectedActions = [
