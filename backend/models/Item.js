@@ -7,6 +7,15 @@ const itemSchema = mongoose.Schema({
   done: {type: Boolean}
 });
 
+itemSchema.set('toJSON', {
+  transform: function(doc, ret, options) {
+    delete ret._id;
+    delete ret.__v;
+
+    return ret;
+  }
+});
+
 const Item = mongoose.model('Item', itemSchema);
 
 export default Item;
