@@ -14,8 +14,6 @@ Promise.mapSeries([
 ], function(item) {
   return new Promise(item);
 }).then(function(results) {
-  console.log(results);
-
   mongoose.disconnect();
 });
 
