@@ -1,5 +1,9 @@
 import {v4 as uniqueId}  from 'node-uuid';
-import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
+import fetch from 'isomorphic-fetch';
+import config from '../../config/config.json';
+import {LIST_ADD, LIST_UPDATE,
+  LIST_FETCH_STARTED, LIST_FETCH_COMPLETED, LIST_FETCH_ERROR
+} from '../constants/ActionTypes';
 
 
 export function addList({id, name, items}) {
@@ -26,5 +30,40 @@ export function updateList(id, name, items) {
     id,
     name,
     items
+  }
+}
+
+export function fetchLists() {
+  return dispatch => {
+    dispatch(requestLists());
+
+    return fetch(`${config.base_path}/api/lists`)
+      .then(response => response.json())
+      .then(json =>
+        dispatch(receiveLists(json.lists))
+      )
+      .catch(error => dispatch(errorLists(error)));
+  }
+}
+
+
+function requestLists() {
+  return {
+    type: LIST_FETCH_STARTED
+  }
+}
+
+function receiveLists(json) {
+  return {
+    type: LIST_FETCH_COMPLETED,
+    lists: json
+  }
+}
+
+
+function errorLists(error) {
+  return {
+    type: LIST_FETCH_ERROR,
+    error: error
   }
 }
