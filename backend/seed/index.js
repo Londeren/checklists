@@ -35,7 +35,7 @@ function createTemplates(callback) {
 }
 
 function createLists(callback) {
-  Promise.each(templates, (val) => {
+  Promise.each(lists, (val) => {
     return new List(val).save()
   }).then(callback);
 }
