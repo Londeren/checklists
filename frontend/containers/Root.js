@@ -15,14 +15,16 @@ import NotFound from './NotFound';
 import DevTools from '../containers/DevTools';
 
 import {loadTemplates} from '../services/templates';
+import {loadLists} from '../services/lists';
 
 
 export default class Root extends Component {
   constructor(props) {
     super(props);
 
-    // load templates on start
+    // load templates at startup
     loadTemplates(this.props.store)();
+    loadLists(this.props.store)();
   }
 
   render() {
