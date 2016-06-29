@@ -1,5 +1,3 @@
-import http from 'http';
-
 /**
  * @todo http://stackoverflow.com/a/32749533/834003
  */

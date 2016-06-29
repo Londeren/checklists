@@ -9,7 +9,7 @@ const templateSchema = mongoose.Schema({
 });
 
 templateSchema.set('toJSON', {
-  transform: function(doc, ret, options) {
+  transform: function(doc, ret) {
     delete ret._id;
     delete ret.__v;
 

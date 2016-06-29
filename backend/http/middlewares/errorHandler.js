@@ -1,8 +1,3 @@
-import logger from '../../libs/logger';
-import HttpError from '../errors/HttpError';
-const log = logger(module);
-
-
 export default async (ctx, next) => {
   try {
     await next();

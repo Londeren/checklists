@@ -2,7 +2,7 @@ import Template from '../../models/Template';
 import HttpError from '../errors/HttpError';
 
 export default class Api {
-  static async templates(ctx, next) {
+  static async templates(ctx) {
     const templates = await Template.find().exec();
 
     if (!templates) {

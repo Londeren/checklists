@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import {db, mongoose} from '../libs/db';
-import Item from '../models/Item';
 import Template from '../models/Template';
 import templates from './templates.json';
 
@@ -13,7 +12,7 @@ Promise.mapSeries([
   createTemplates
 ], function(item) {
   return new Promise(item);
-}).then(function(results) {
+}).then(function() {
   mongoose.disconnect();
 });
 
