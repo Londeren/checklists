@@ -6,7 +6,7 @@
     "backend": "NODE_ENV=development node backend/index.js",
     "start": "node server.js | npm run backend",
     "start:devtools": "DEVTOOLS=true node server.js | npm run backend",
-    "lint": "eslint frontend",
+    "lint": "eslint frontend | eslint backend",
     "webpack": "node_modules/webpack/bin/webpack.js",
     "test": "mocha --compilers js:babel-core/register --recursive \"./frontend/**/*.spec.js\" --require ./test/bootstrap.js",
     "test:watch": "npm run test -- --watch"
