@@ -11,9 +11,7 @@ const apiRouter = new Router({
   prefix: '/api'
 })
   .get('/templates', Api.templates)
-  .get('/lists', function(ctx) {
-    ctx.body = 'Lists';
-  });
+  .get('/lists', Api.lists);
 
 
 router.use(apiRouter.routes());
