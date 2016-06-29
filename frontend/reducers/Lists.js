@@ -1,4 +1,4 @@
-import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
+import {LIST_ADD, LIST_UPDATE, LIST_FETCH_COMPLETED} from '../constants/ActionTypes';
 
 export default function(state = [], action) {
   switch(action.type)
@@ -23,6 +23,11 @@ export default function(state = [], action) {
         }
         return list
       });
+    case LIST_FETCH_COMPLETED:
+      return [
+        ...state,
+        ...action.lists
+      ];
     default:
       return state;
   }

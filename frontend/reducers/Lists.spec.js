@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import reducer from './Lists';
-import {LIST_ADD, LIST_UPDATE} from '../constants/ActionTypes';
+import {LIST_ADD, LIST_UPDATE, LIST_FETCH_COMPLETED} from '../constants/ActionTypes';
 
 describe('Templates reducer', () => {
   it('should return the initial state', () => {
@@ -77,4 +77,34 @@ describe('Templates reducer', () => {
       }
     ]);
   });
+
+  it('should handle LIST_FETCH_COMPLETED', () => {
+    expect(reducer([{
+      id: '1',
+      templateId: '0.1',
+      name: 'test',
+      items: []
+    }], {
+      type: LIST_FETCH_COMPLETED,
+      lists: [{
+        id: '2',
+        templateId: '0.2',
+        name: 'test2',
+        items: [{name: 'first item'}]
+      }]
+    })).to.be.eql([
+      {
+        id: '1',
+        name: 'test',
+        templateId: '0.1',
+        items: []
+      },
+      {
+        id: '2',
+        name: 'test2',
+        templateId: '0.2',
+        items: [{name: 'first item'}]
+      }
+    ]);
+  })
 });
