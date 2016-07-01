@@ -2,8 +2,8 @@ import Template from '../../models/Template';
 import List from '../../models/List';
 import HttpError from '../errors/HttpError';
 
-export default class Api {
-  static async templates(ctx) {
+export default class Templates {
+  static async index(ctx) {
     const templates = await Template.find().exec();
 
     if (!templates) {
@@ -13,13 +13,10 @@ export default class Api {
     return ctx.body = {templates};
   }
 
-  static async lists(ctx) {
-    const lists = await List.find().exec();
+  static async store(ctx) {
 
-    if (!lists) {
-      throw new HttpError(404, 'Lists not found');
-    }
+    console.dir(ctx.request.body);
 
-    return ctx.body = {lists};
+    return ctx.body = 'store';
   }
 }

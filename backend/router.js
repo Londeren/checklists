@@ -1,5 +1,6 @@
 import Router from 'koa-router';
-import Api from './http/controllers/Api';
+import Templates from './http/controllers/Templates';
+import Lists from './http/controllers/Lists';
 
 const router = new Router()
   .get('/', function(ctx) {
@@ -10,8 +11,9 @@ const router = new Router()
 const apiRouter = new Router({
   prefix: '/api'
 })
-  .get('/templates', Api.templates)
-  .get('/lists', Api.lists);
+  .get('/templates', Templates.index)
+  .post('/templates', Templates.store)
+  .get('/lists', Lists.index);
 
 
 router.use(apiRouter.routes());
