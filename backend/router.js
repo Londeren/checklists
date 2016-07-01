@@ -13,6 +13,7 @@ const apiRouter = new Router({
 })
   .get('/templates', Templates.index)
   .post('/templates', Templates.store)
+  .put('/templates', Templates.update)
   .get('/lists', Lists.index);
 
 

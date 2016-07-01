@@ -13,10 +13,40 @@ export default class Templates {
     return ctx.body = {templates};
   }
 
-  static async store(ctx) {
+  /**
+   * add template
+   * @param ctx
+   * @param next
+   * @returns {string}
+   */
+  static async store(ctx, next) {
+    let template = new Template(ctx.request.body);
 
-    console.dir(ctx.request.body);
+    try {
+      template = await template.save();
+    } catch(err) {
+      if (err.name === 'ValidationError') {
 
-    return ctx.body = 'store';
+        throw new HttpError(400, {message: err.message, errors: err.errors})
+      } else {
+        return next(err);
+      }
+    }
+    return ctx.body = template.toJSON();
+  }
+
+  /**
+   * update template
+   * @param ctx
+   * @param next
+   */
+  static async update(ctx, next) {
+    const requestParams = ctx.request.body;
+    const result = await Template.update({id: requestParams.id}, {
+      name: requestParams.name,
+      items: requestParams.items
+    }).exec();
+
+    return ctx.body = result;
   }
 }
