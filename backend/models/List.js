@@ -3,10 +3,10 @@ import {v4 as uniqueId}  from 'node-uuid';
 import Item from './Item';
 
 const listSchema = mongoose.Schema({
-  id: {type: String, default: uniqueId, required: true},
-  templateId: {type: String},
-  name: {type: String},
-  items: [Item.schema]
+  id: {type: String, default: uniqueId, required: true, unique: true},
+  name: {type: String, required: true},
+  items: [Item.schema],
+  templateId: {type: String}
 });
 
 listSchema.set('toJSON', {
