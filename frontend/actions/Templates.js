@@ -4,7 +4,8 @@ import config from '../../config/config.json';
 import {
   TEMPLATE_ADD,
   TEMPLATE_UPDATE,
-  TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR
+  TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR,
+  TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED, TEMPLATE_STORE_ERROR
 } from '../constants/ActionTypes';
 
 
@@ -39,6 +40,25 @@ export function fetchTemplates() {
   }
 }
 
+export function storeTemplate(name, items) {
+  return dispatch => {
+    dispatch(storeStarted());
+
+    return fetch(`${config.base_path}/api/templates`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name, items})
+    }).then(response => response.json())
+      .then(json =>
+        dispatch(storeCompleted(json))
+      )
+      .catch(error => dispatch(storeError(error)));
+  }
+}
+
 function requestTemplates() {
   return {
     type: TEMPLATE_FETCH_STARTED
@@ -60,3 +80,22 @@ function errorTemplates(error) {
   }
 }
 
+function storeStarted() {
+  return {
+    type: TEMPLATE_STORE_STARTED
+  }
+}
+
+function storeCompleted(json) {
+  return {
+    type: TEMPLATE_STORE_COMPLETED,
+    ...json
+  };
+}
+
+function storeError(error) {
+  return {
+    type: TEMPLATE_STORE_ERROR,
+    error: error
+  }
+}

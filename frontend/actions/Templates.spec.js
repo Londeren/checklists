@@ -4,9 +4,10 @@ import nock from 'nock';
 import {expect} from 'chai';
 
 import config from '../../config';
-import {addTemplate, updateTemplate, fetchTemplates} from './Templates';
+import {addTemplate, updateTemplate, fetchTemplates, storeTemplate} from './Templates';
 import {TEMPLATE_ADD, TEMPLATE_UPDATE,
-  TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED} from '../constants/ActionTypes';
+  TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED,
+  TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED} from '../constants/ActionTypes';
 
 
 const middlewares = [thunk];
@@ -91,6 +92,43 @@ describe('Templates actions', () => {
       const store = mockStore({templates: []});
 
       store.dispatch(fetchTemplates())
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+        })
+        .then(done)
+        .catch(done);
+    });
+  });
+
+  describe('storeTemplate', () => {
+    afterEach(() => {
+      nock.cleanAll()
+    });
+
+    it('should create TEMPLATE_STORE_COMPLETED when storing template has been done', (done) => {
+      const setupTemplate = {
+        id: '328398ba-c578-48b4-9129-6ec70f787de6',
+        name: 'Practical Assurance',
+        items: [
+          {
+            id: '7251d6df-10d6-4ca5-892e-f21ede975033',
+            name: 'Drive Garden',
+            done: false
+          }
+        ]
+      };
+
+      nock(config.get('base_path'))
+        .post('/api/templates')
+        .reply(200, setupTemplate);
+
+      const expectedActions = [
+        {type: TEMPLATE_STORE_STARTED},
+        {type: TEMPLATE_STORE_COMPLETED, ...setupTemplate}
+      ];
+      const store = mockStore({templates: []});
+
+      store.dispatch(storeTemplate(setupTemplate.name, setupTemplate.items))
         .then(() => {
           expect(store.getActions()).to.eql(expectedActions)
         })
