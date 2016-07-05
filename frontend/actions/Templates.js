@@ -9,23 +9,19 @@ import {
 } from '../constants/ActionTypes';
 
 
-export function addTemplate(name, items) {
-  return {
-    type: TEMPLATE_ADD,
-    id: uniqueId(),
-    name,
-    items
-  };
-}
+export const addTemplate = (name, items) => ({
+  type: TEMPLATE_ADD,
+  id: uniqueId(),
+  name,
+  items
+});
 
-export function updateTemplate(id, name, items) {
-  return {
-    type: TEMPLATE_UPDATE,
-    id,
-    name,
-    items
-  }
-}
+export const updateTemplate = (id, name, items) => ({
+  type: TEMPLATE_UPDATE,
+  id,
+  name,
+  items
+});
 
 export function fetchTemplates() {
   return dispatch => {
@@ -33,9 +29,7 @@ export function fetchTemplates() {
 
     return fetch(`${config.base_path}/api/templates`)
       .then(response => response.json())
-      .then(json =>
-        dispatch(receiveTemplates(json.templates))
-      )
+      .then(json => dispatch(receiveTemplates(json.templates)))
       .catch(error => dispatch(errorTemplates(error)));
   }
 }
@@ -52,50 +46,36 @@ export function storeTemplate(name, items) {
       },
       body: JSON.stringify({name, items})
     }).then(response => response.json())
-      .then(json =>
-        dispatch(storeCompleted(json))
-      )
+      .then(json => dispatch(storeCompleted(json)))
       .catch(error => dispatch(storeError(error)));
   }
 }
 
-function requestTemplates() {
-  return {
-    type: TEMPLATE_FETCH_STARTED
-  }
-}
+const requestTemplates = () => ({
+  type: TEMPLATE_FETCH_STARTED
+});
 
-function receiveTemplates(json) {
-  return {
-    type: TEMPLATE_FETCH_COMPLETED,
-    templates: json
-  }
-}
+const receiveTemplates = json => ({
+  type: TEMPLATE_FETCH_COMPLETED,
+  templates: json
+});
 
 
-function errorTemplates(error) {
-  return {
-    type: TEMPLATE_FETCH_ERROR,
-    error: error
-  }
-}
+const errorTemplates = error => ({
+  type: TEMPLATE_FETCH_ERROR,
+  error: error
+});
 
-function storeStarted() {
-  return {
-    type: TEMPLATE_STORE_STARTED
-  }
-}
+const storeStarted = () => ({
+  type: TEMPLATE_STORE_STARTED
+});
 
-function storeCompleted(json) {
-  return {
-    type: TEMPLATE_STORE_COMPLETED,
-    ...json
-  };
-}
+const storeCompleted = template => ({
+  type: TEMPLATE_STORE_COMPLETED,
+  ...template
+});
 
-function storeError(error) {
-  return {
-    type: TEMPLATE_STORE_ERROR,
-    error: error
-  }
-}
+const storeError = error => ({
+  type: TEMPLATE_STORE_ERROR,
+  error: error
+});
