@@ -47,6 +47,6 @@ export default class Templates {
       items: requestParams.items
     }).exec();
 
-    return ctx.body = result;
+    return ctx.body = await Template.findOne({id: requestParams.id}).exec();
   }
 }

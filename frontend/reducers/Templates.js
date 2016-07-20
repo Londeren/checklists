@@ -1,4 +1,4 @@
-import {TEMPLATE_ADD, TEMPLATE_UPDATE, TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED} from '../constants/ActionTypes';
+import {TEMPLATE_ADD, TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
 
 export default function(state = [], action) {
   switch(action.type)
@@ -13,7 +13,7 @@ export default function(state = [], action) {
           items: action.items
         }
       ];
-    case TEMPLATE_UPDATE:
+    case TEMPLATE_UPDATE_COMPLETED:
       return state.map((template) => {
         if (template.id === action.id) {
           return Object.assign({}, template, {

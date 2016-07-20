@@ -1,7 +1,7 @@
 import chai, {expect} from 'chai';
 import spies from 'chai-spies';
 import reducer from './Templates';
-import {TEMPLATE_ADD, TEMPLATE_UPDATE, TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED} from '../constants/ActionTypes';
+import {TEMPLATE_ADD, TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
 
 chai.use(spies);
 
@@ -50,9 +50,9 @@ describe('Templates reducer', () => {
 
 
 
-  it('should handle TEMPLATE_UPDATE', () => {
+  it('should handle TEMPLATE_UPDATE_COMPLETED', () => {
     expect(reducer([], {
-      type: TEMPLATE_UPDATE,
+      type: TEMPLATE_UPDATE_COMPLETED,
       id: '1',
       name: 'test',
       items: []
@@ -63,7 +63,7 @@ describe('Templates reducer', () => {
       name: 'test',
       items: []
     }], {
-      type: TEMPLATE_UPDATE,
+      type: TEMPLATE_UPDATE_COMPLETED,
       id: '1',
       name: 'new name',
       items: [{name: 'new item'}]
@@ -80,7 +80,7 @@ describe('Templates reducer', () => {
       name: 'test',
       items: []
     }], {
-      type: TEMPLATE_UPDATE,
+      type: TEMPLATE_UPDATE_COMPLETED,
       id: '2',
       name: 'new name',
       items: [{name: 'new item'}]
@@ -97,7 +97,7 @@ describe('Templates reducer', () => {
       name: 'test',
       items: [{name: 'first item'}]
     }], {
-      type: TEMPLATE_UPDATE,
+      type: TEMPLATE_UPDATE_COMPLETED,
       id: '1',
       name: 'new name',
       items: []

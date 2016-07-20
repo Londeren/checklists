@@ -5,9 +5,10 @@ import {expect} from 'chai';
 
 import config from '../../config';
 import {addTemplate, updateTemplate, fetchTemplates, storeTemplate} from './Templates';
-import {TEMPLATE_ADD, TEMPLATE_UPDATE,
+import {TEMPLATE_ADD,
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED,
-  TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED} from '../constants/ActionTypes';
+  TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED,
+  TEMPLATE_UPDATE_STARTED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
 
 
 const middlewares = [thunk];
@@ -36,25 +37,40 @@ describe('Templates actions', () => {
   });
 
   describe('updateTemplate', () => {
-
-    it('should create an action to update a template', () => {
-      const id = '1';
-      const name = 'Template name';
-      const items = [
-        {
-          name: 'first item'
-        }
-      ];
-      const expectedAction = {
-        id,
-        type: TEMPLATE_UPDATE,
-        name,
-        items
-      };
-
-      expect(updateTemplate(id, name, items)).to.include(expectedAction);
+    afterEach(() => {
+      nock.cleanAll()
     });
 
+    it('should create TEMPLATE_UPDATE_COMPLETED when template has been updated', (done) => {
+      const setupTemplate = {
+        id: '328398ba-c578-48b4-9129-6ec70f787de6',
+        name: 'Practical Assurance',
+        items: [
+          {
+            id: '7251d6df-10d6-4ca5-892e-f21ede975033',
+            name: 'Drive Garden',
+            done: false
+          }
+        ]
+      };
+
+      nock(config.get('base_path'))
+        .put('/api/templates')
+        .reply(200, setupTemplate);
+
+      const expectedActions = [
+        {type: TEMPLATE_UPDATE_STARTED},
+        {type: TEMPLATE_UPDATE_COMPLETED, ...setupTemplate}
+      ];
+      const store = mockStore({templates: [setupTemplate]});
+
+      store.dispatch(updateTemplate(setupTemplate.id, setupTemplate.name, setupTemplate.items))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+        })
+        .then(done)
+        .catch(done);
+    });
   });
 
   describe('fetchTemplates', () => {

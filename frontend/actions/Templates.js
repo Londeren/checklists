@@ -3,9 +3,9 @@ import fetch from 'isomorphic-fetch';
 import config from '../../config/config.json';
 import {
   TEMPLATE_ADD,
-  TEMPLATE_UPDATE,
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR,
-  TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED, TEMPLATE_STORE_ERROR
+  TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED, TEMPLATE_STORE_ERROR,
+  TEMPLATE_UPDATE_STARTED, TEMPLATE_UPDATE_COMPLETED, TEMPLATE_UPDATE_ERROR,
 } from '../constants/ActionTypes';
 
 
@@ -16,12 +16,22 @@ export const addTemplate = (name, items) => ({
   items
 });
 
-export const updateTemplate = (id, name, items) => ({
-  type: TEMPLATE_UPDATE,
-  id,
-  name,
-  items
-});
+export function updateTemplate(id, name, items) {
+  return dispatch => {
+    dispatch(updateStarted());
+
+    return fetch(`${config.base_path}/api/templates`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id, name, items})
+    }).then(response => response.json())
+      .then(json => dispatch(updateCompleted(json)))
+      .catch(error => dispatch(updateError(error)));
+  }
+}
 
 export function fetchTemplates() {
   return dispatch => {
@@ -77,5 +87,19 @@ const storeCompleted = template => ({
 
 const storeError = error => ({
   type: TEMPLATE_STORE_ERROR,
+  error: error
+});
+
+const updateStarted = () => ({
+  type: TEMPLATE_UPDATE_STARTED
+});
+
+const updateCompleted = template => ({
+  type: TEMPLATE_UPDATE_COMPLETED,
+  ...template
+});
+
+const updateError = error => ({
+  type: TEMPLATE_UPDATE_ERROR,
   error: error
 });
