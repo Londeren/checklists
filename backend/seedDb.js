@@ -1,3 +1,5 @@
 require('babel-register');
 require('babel-polyfill');
-require('./seed');
+var seed = require('./seed').default;
+
+seed();
