@@ -1,0 +1,7 @@
+{
+  "backend": {
+    "mongoose": {
+      "uri": "mongodb://localhost/lists-test"
+    }
+  }
+}

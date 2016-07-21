@@ -8,7 +8,9 @@
     "start:devtools": "DEVTOOLS=true node server.js | npm run backend",
     "lint": "eslint frontend | eslint backend",
     "webpack": "node_modules/webpack/bin/webpack.js",
-    "test": "mocha --compilers js:babel-core/register --recursive \"./frontend/**/*.spec.js\" --require ./test/bootstrap.js",
+    "test:backend": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive \"./backend/**/*.spec.js\" --require ./test/bootstrap.js",
+    "test:frontend": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive \"./frontend/**/*.spec.js\" --require ./test/bootstrap.js",
+    "test": "npm run test:backend && npm run test:frontend",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Sergey Lebedev",
@@ -32,7 +34,7 @@
     "kcors": "^2.1.1",
     "koa-bodyparser": "^3.1.0",
     "lodash": "^4.13.1",
-    "mocha": "^2.5.3",
+    "mocha": "^3.0.0-1",
     "mongoose": "^4.4.19",
     "nock": "^8.0.0",
     "node-uuid": "^1.4.7",
@@ -48,6 +50,8 @@
     "redux-devtools-log-monitor": "^1.0.10",
     "redux-mock-store": "^1.0.3",
     "redux-thunk": "^1.0.3",
+    "supertest": "^1.2.0",
+    "supertest-as-promised": "^3.2.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
