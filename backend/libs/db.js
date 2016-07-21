@@ -4,10 +4,23 @@ import logger from '../libs/logger';
 
 const log = logger(module);
 
-mongoose.connect(config.get('backend:mongoose:uri'));
+function connect(uri = config.get('backend:mongoose:uri')) {
+  return new Promise((resolve, reject) => {
+    mongoose.connection
+      .on('error', error => {
+        log.error(error);
+        reject(error)
+      })
+      .on('close', () => log.info('Database connection closed.'))
+      .once('open', () => resolve(mongoose.connection, mongoose.connections[0]));
 
-const db = mongoose.connection;
+    mongoose.connect(uri);
+  });
+}
 
-db.on('error', log.error);
+function disconnect() {
+  return mongoose.disconnect();
+}
 
-export {db, mongoose};
+
+export {connect, disconnect, mongoose};

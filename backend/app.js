@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import router from './router';
 import config from '../config';
 import logger from './libs/logger';
-import {db} from './libs/db';
+import {connect} from './libs/db';
 import errorHandler from './http/middlewares/errorHandler';
 
 const log = logger(module);
@@ -16,11 +16,21 @@ app.use(errorHandler);
 app.use(router.routes());
 
 
-db.once('open', () => {
-  app.listen(config.get('backend:port'), function() {
-    log.info(`Start listening http://localhost:${config.get('backend:port')}/`);
-  });
-});
+(async() => {
+  try {
+    await connect(config.get('backend:mongoose:uri'));
+  } catch (error) {
+    log.error(`Unable to connect to database ${config.get('backend:mongoose:uri')}`);
+  }
+
+  try {
+    await app.listen(config.get('backend:port'));
+
+    log.info(`Start listening ${config.get('base_path')}`);
+  } catch (error) {
+    log.error(error);
+  }
+})();
 
 
 export default app;
