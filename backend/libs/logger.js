@@ -8,7 +8,7 @@ export default function(module) {
     transports: [
       new winston.transports.Console({
         colorize: true,
-        level: config.get('NODE_ENV') === 'development' ? 'debug' : 'error',
+        level: config.get('NODE_ENV') === 'development' || config.get('NODE_ENV') === 'test' ? 'debug' : 'error',
         label: path
       })
     ]

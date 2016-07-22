@@ -12,8 +12,10 @@ function connect(uri = config.get('backend:mongoose:uri')) {
         reject(error)
       })
       .on('close', () => log.info('Database connection closed.'))
-      .once('open', () => resolve(mongoose.connection, mongoose.connections[0]));
-
+      .once('open', () => {
+        log.info(`Database connection opened ${uri}`);
+        resolve(mongoose.connection, mongoose.connections[0])
+      });
     mongoose.connect(uri);
   });
 }
