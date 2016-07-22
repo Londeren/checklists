@@ -9,15 +9,10 @@ import lists from './lists.json';
 
 const log = logger(module);
 
-export default function() {
-  connect()
-  .then((connection) => {
-    return dropDatabase(connection);
-  })
-  .then(createTemplates)
-  .then(createLists)
-  .then(disconnect)
-  .then(() => log.info('Database seeded'))
+export default function(connection) {
+  return dropDatabase(connection)
+    .then(() => Promise.all([createTemplates(), createLists()]))
+    .then(() => log.info('Database seeded'))
 };
 
 function dropDatabase(connection) {

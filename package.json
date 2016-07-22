@@ -4,11 +4,12 @@
   "description": "Checklists based on templates",
   "scripts": {
     "backend": "NODE_ENV=development node backend/index.js",
+    "seedDB": "NODE_ENV=development node backend/seedDb.js",
     "start": "node server.js | npm run backend",
     "start:devtools": "DEVTOOLS=true node server.js | npm run backend",
     "lint": "eslint frontend | eslint backend",
     "webpack": "node_modules/webpack/bin/webpack.js",
-    "test:backend": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive \"./backend/**/*.spec.js\" --require ./test/bootstrap.js",
+    "test:backend": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill --recursive \"./backend/**/*.spec.js\" --require ./test/bootstrap.js",
     "test:frontend": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive \"./frontend/**/*.spec.js\" --require ./test/bootstrap.js",
     "test": "npm run test:backend && npm run test:frontend",
     "test:watch": "npm run test -- --watch"
