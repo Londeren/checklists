@@ -42,11 +42,27 @@ export default class Templates {
    */
   static async update(ctx, next) {
     const requestParams = ctx.request.body;
-    const result = await Template.update({id: requestParams.id}, {
-      name: requestParams.name,
-      items: requestParams.items
-    }).exec();
 
-    return ctx.body = await Template.findOne({id: requestParams.id}).exec();
+    try {
+      await Template.update({id: requestParams.id}, {
+          name: requestParams.name,
+          items: requestParams.items
+        },
+        {runValidators: true}).exec();
+    } catch(err) {
+      if (err.name === 'ValidationError') {
+
+        throw new HttpError(400, {message: err.message, errors: err.errors})
+      } else {
+        return next(err);
+      }
+    }
+
+    const template = await Template.findOne({id: requestParams.id}).exec();
+    if (!template) {
+      throw new HttpError(404, 'Template not found');
+    }
+
+    ctx.body = template;
   }
 }
