@@ -16,6 +16,8 @@ function connect(uri = config.get('backend:mongoose:uri')) {
         log.info(`Database connection opened ${uri}`);
         resolve(mongoose.connection, mongoose.connections[0])
       });
+
+    mongoose.Promise = global.Promise;
     mongoose.connect(uri);
   });
 }
