@@ -21,7 +21,9 @@ import {loadLists} from '../services/lists';
 export default class Root extends Component {
   constructor(props) {
     super(props);
+  }
 
+  componentWillMount() {
     // load templates at startup
     loadTemplates(this.props.store)();
     loadLists(this.props.store)();
