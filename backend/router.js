@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import Templates from './http/controllers/Templates';
 import Lists from './http/controllers/Lists';
+import Auth from './http/controllers/Auth';
 
 const router = new Router()
   .get('/', function(ctx) {
@@ -16,7 +17,16 @@ const apiRouter = new Router({
   .put('/templates', Templates.update)
   .get('/lists', Lists.index);
 
+const authRouter = new Router({
+  prefix: '/auth'
+})
+  .post('/login', Auth.login)
+  .post('/logout', Auth.logout);
+
+
+
 
 router.use(apiRouter.routes());
+router.use(authRouter.routes());
 
 export default router;
