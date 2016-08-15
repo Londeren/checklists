@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 export default class TopMenu extends Component {
 
   render() {
-    const { items } = this.props;
+    const { items, rightNavbar } = this.props;
 
     return (
         <nav className="navbar navbar-fixed-top navbar-dark bg-inverse">
@@ -19,6 +19,8 @@ export default class TopMenu extends Component {
               );
             })}
           </ul>
+
+          {rightNavbar}
         </nav>
     );
   }
@@ -29,5 +31,6 @@ TopMenu.propTypes = {
     name: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     isActive: PropTypes.bool.isRequired
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  rightNavbar: PropTypes.node
 };

@@ -8,10 +8,10 @@ import { Link } from 'react-router';
 
 chai.use(spies);
 
-function setup(items) {
+function setup(items, rightNavbar = 'rightNavbar') {
 
   let renderer = TestUtils.createRenderer();
-  renderer.render(<TopMenu items={items} />);
+  renderer.render(<TopMenu items={items} rightNavbar={rightNavbar}/>);
   let output = renderer.getRenderOutput();
 
   return {
@@ -40,13 +40,15 @@ describe('TopMenu component', () => {
       }
     ];
 
-    const { output } = setup(setupItems);
+    const rightNavbar = 'right navbar';
+
+    const { output } = setup(setupItems, rightNavbar);
 
     expect(output.type).to.equal('nav');
     expect(output.props.className).to.equal('navbar navbar-fixed-top navbar-dark bg-inverse');
 
     {
-      const [mainPageLink, menuUl] = output.props.children;
+      const [mainPageLink, menuUl, rightNavbarChild] = output.props.children;
 
       {
         expect(mainPageLink.type).to.equal(Link);
@@ -70,6 +72,8 @@ describe('TopMenu component', () => {
             expect(itemLink.props.children).to.equal(setupItems[k].name);
           }
         });
+
+        expect(rightNavbarChild).to.equal(rightNavbar);
       }
     }
 
