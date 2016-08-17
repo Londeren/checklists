@@ -1,8 +1,8 @@
 /* global __DEVTOOLS__ */
 
-import React, { Component, PropTypes } from 'react';
-import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute } from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import {Provider} from 'react-redux';
+import {Router, Route, IndexRoute} from 'react-router';
 import App from './App';
 import Lists from './Lists';
 import List from './List';
@@ -13,6 +13,7 @@ import Templates from './Templates';
 import Template from './Template';
 import NotFound from './NotFound';
 import DevTools from '../containers/DevTools';
+import Login from './Login';
 
 import {loadTemplates} from '../services/templates';
 import {loadLists} from '../services/lists';
@@ -51,8 +52,9 @@ export default class Root extends Component {
                 <IndexRoute component={ListsIndex} />
                 <Route path="view/:listId" component={List} />
               </Route>
+              <Route path='login' component={Login} />
+              <Route path="*" status={404} component={NotFound} />
             </Route>
-            <Route path="*" status={404} component={NotFound} />
           </Router>
 
         </div>
