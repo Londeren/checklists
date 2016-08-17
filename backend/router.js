@@ -1,7 +1,9 @@
 import Router from 'koa-router';
+import jwt from 'koa-jwt';
 import Templates from './http/controllers/Templates';
 import Lists from './http/controllers/Lists';
 import Auth from './http/controllers/Auth';
+import config from '../config';
 
 const router = new Router()
   .get('/', function(ctx) {
@@ -24,9 +26,10 @@ const authRouter = new Router({
   .post('/logout', Auth.logout);
 
 
-
+router.use('/api', jwt({secret: config.get('backend:jwt:secret')}));
 
 router.use(apiRouter.routes());
 router.use(authRouter.routes());
+
 
 export default router;
