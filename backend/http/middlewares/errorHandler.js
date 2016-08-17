@@ -6,7 +6,10 @@ export default async (ctx, next) => {
     ctx.status = err.status || err.statusCode || 500;
 
     ctx.body = {
-      message: err.message
+      error: {
+        code: err.name,
+        message: err.message
+      }
     };
   }
 }
