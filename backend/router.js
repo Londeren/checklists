@@ -3,7 +3,7 @@ import jwt from 'koa-jwt';
 import Templates from './http/controllers/Templates';
 import Lists from './http/controllers/Lists';
 import Auth from './http/controllers/Auth';
-import config from '../config';
+import authenticateUser from './http/middlewares/authenticateUser';
 
 const router = new Router()
   .get('/', function(ctx) {
@@ -22,11 +22,9 @@ const apiRouter = new Router({
 const authRouter = new Router({
   prefix: '/auth'
 })
-  .post('/login', Auth.login)
-  .post('/logout', Auth.logout);
+  .post('/login', Auth.login);
 
-
-router.use('/api', jwt({secret: config.get('backend:jwt:secret')}));
+router.use('/api', authenticateUser);
 
 router.use(apiRouter.routes());
 router.use(authRouter.routes());
