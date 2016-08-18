@@ -1,14 +1,25 @@
 'use strict';
-import {sign} from '../../libs/jwt';
+import User from '../../models/User';
 import HttpError from '../errors/HttpError';
 
 export default class Auth {
   static async login(ctx) {
+    const {login, password} = ctx.request.body;
+
+    const user = await User.findOne({login});
+    if (!user) {
+      throw HttpError.unauthorized('Login/password pair is incorrect');
+    }
+
+    const isMatch = await user.validatePassword(password);
+
+    if (!isMatch) {
+      throw HttpError.unauthorized('Login/password pair is incorrect');
+    }
+
     ctx.body = {
-      token: sign({
-        id: '1',
-        login: 'admin'
-      })
+      token: user.generateToken(),
+      user: user
     };
   }
 }
