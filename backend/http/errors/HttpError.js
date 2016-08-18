@@ -15,4 +15,12 @@ export default class HttpError extends Error {
       this.stack = (new Error(message)).stack;
     }
   }
+
+  static notFound(message) {
+    return new HttpError(404, message);
+  }
+
+  static unauthorized(message) {
+    return new HttpError(401, message);
+  }
 }
