@@ -6,7 +6,7 @@ export default class Lists {
     const lists = await List.find().exec();
 
     if (!lists) {
-      throw new HttpError(404, 'Lists not found');
+      throw HttpError.notFound('Lists not found');
     }
 
     return ctx.body = {lists};

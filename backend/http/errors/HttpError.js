@@ -23,4 +23,8 @@ export default class HttpError extends Error {
   static unauthorized(message) {
     return new HttpError(401, message);
   }
+
+  static badRequest(message) {
+    return new HttpError(400, message);
+  }
 }

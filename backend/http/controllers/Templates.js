@@ -7,7 +7,7 @@ export default class Templates {
     const templates = await Template.find().exec();
 
     if (!templates) {
-      throw new HttpError(404, 'Templates not found');
+      throw HttpError.notFound('Templates not found');
     }
 
     return ctx.body = {templates};
@@ -27,7 +27,7 @@ export default class Templates {
     } catch(err) {
       if (err.name === 'ValidationError') {
 
-        throw new HttpError(400, {message: err.message, errors: err.errors})
+        throw HttpError.badRequest({message: err.message, errors: err.errors})
       } else {
         return next(err);
       }
@@ -52,7 +52,7 @@ export default class Templates {
     } catch(err) {
       if (err.name === 'ValidationError') {
 
-        throw new HttpError(400, {message: err.message, errors: err.errors})
+        throw HttpError.badRequest({message: err.message, errors: err.errors})
       } else {
         return next(err);
       }
@@ -60,7 +60,7 @@ export default class Templates {
 
     const template = await Template.findOne({id: requestParams.id}).exec();
     if (!template) {
-      throw new HttpError(404, 'Template not found');
+      throw HttpError.notFound('Template not found');
     }
 
     ctx.body = template;
