@@ -1,5 +1,4 @@
 import Router from 'koa-router';
-import jwt from 'koa-jwt';
 import Templates from './http/controllers/Templates';
 import Lists from './http/controllers/Lists';
 import Auth from './http/controllers/Auth';
