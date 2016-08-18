@@ -4,14 +4,16 @@ import config from '../../config';
 import logger from '../libs/logger';
 import Template from '../models/Template';
 import List from '../models/List';
+import User from '../models/User';
 import templates from './templates.json';
 import lists from './lists.json';
+import users from './users.json';
 
 const log = logger(module);
 
 export default function(connection) {
   return dropDatabase(connection)
-    .then(() => Promise.all([createTemplates(), createLists()]))
+    .then(() => Promise.all([createTemplates(), createLists(), createUsers()]))
     .then(() => log.info('Database seeded'))
 };
 
@@ -36,5 +38,11 @@ function createTemplates() {
 function createLists() {
   return Promise.each(lists, (val) => {
     return new List(val).save()
+  });
+}
+
+function createUsers() {
+  return Promise.each(users, (val) => {
+    return new User(val).save()
   });
 }
