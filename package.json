@@ -18,6 +18,7 @@
   "license": "MIT",
   "repository": "https://github.com/Londeren/lists.git",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "es6-promise": "^3.2.1",
     "extract-text-webpack-plugin": "^1.0.1",
