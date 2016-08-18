@@ -9,5 +9,7 @@ addons:
     packages:
     - gcc-4.8
     - g++-4.8
+env:
+  - TRAVIS=travis CXX=g++-4.8
 script:
   - npm run test
