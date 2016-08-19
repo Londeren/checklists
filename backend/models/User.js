@@ -14,14 +14,14 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function preSaveUser(next) {
   const user = this;
-  const SALT_WORK_FACTOR = 10;
+  const SALT_ROUNDS = 10;
 
   if (!user.isModified('password')) {
     return next();
   }
 
   try {
-    const salt = await bcrypt.genSaltAsync(SALT_WORK_FACTOR);
+    const salt = await bcrypt.genSaltAsync(SALT_ROUNDS);
     user.password = await bcrypt.hashAsync(user.password, salt);
 
     next();
