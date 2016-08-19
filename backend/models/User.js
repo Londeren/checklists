@@ -9,10 +9,11 @@ Promise.promisifyAll(bcrypt);
 
 const userSchema = new mongoose.Schema({
   login: {type: String, required: true, unique: true},
+  login_lower: {type: String, unique: true},
   password: {type: String, required: true}
 });
 
-userSchema.pre('save', async function preSaveUser(next) {
+userSchema.pre('save', async function preSaveSetPassword(next) {
   const user = this;
   const SALT_ROUNDS = 10;
 
@@ -30,10 +31,17 @@ userSchema.pre('save', async function preSaveUser(next) {
   }
 });
 
+userSchema.pre('save', function preSaveSetLoginLower(next) {
+  this.login_lower = this.login.toLowerCase();
+
+  next();
+});
+
 userSchema.set('toJSON', {
   transform: function(doc, ret) {
     delete ret.__v;
     delete ret.password;
+    delete ret.login_lower;
 
     ret.id = ret._id;
     delete ret._id;
@@ -52,6 +60,12 @@ userSchema.methods.generateToken = function generateToken() {
   const user = this;
 
   return sign({id: user.id});
+};
+
+userSchema.statics.findByLogin = function findByLogin(login) {
+  const loginLower = login.toLowerCase();
+
+  return this.findOne({login_lower: loginLower});
 };
 
 const User = mongoose.model('users', userSchema);

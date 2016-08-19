@@ -6,7 +6,7 @@ export default class Auth {
   static async login(ctx) {
     const {login, password} = ctx.request.body;
 
-    const user = await User.findOne({login});
+    const user = await User.findByLogin(login);
     if (!user) {
       throw HttpError.unauthorized('Login/password pair is incorrect');
     }
