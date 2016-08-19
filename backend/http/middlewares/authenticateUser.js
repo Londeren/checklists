@@ -18,7 +18,7 @@ export default async(ctx, next) => {
   }
 
   try {
-    const user = await User.findById(decoded.id, '-password');
+    const user = await User.findById(decoded.id);
     if (!user) {
       ctx.throw(401, 'User not found\n');
     }
