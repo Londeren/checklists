@@ -9,7 +9,7 @@ export default function AuthTopMenu({ isAuthorized }) {
         {
           isAuthorized ?
           <Link to="/logout" className="nav-link" activeClassName="active" onlyActiveOnIndex={false}>Logout</Link> :
-          <Link to="/signin" className="nav-link" activeClassName="active" onlyActiveOnIndex={false}>Sign in</Link>
+          <Link to="/login" className="nav-link" activeClassName="active" onlyActiveOnIndex={false}>Login</Link>
         }
       </li>
     </ul>

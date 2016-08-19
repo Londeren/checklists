@@ -1,6 +1,5 @@
 import {v4 as uniqueId}  from 'node-uuid';
 import fetch from 'isomorphic-fetch';
-import config from '../../config/config.json';
 import {
   TEMPLATE_ADD,
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR,

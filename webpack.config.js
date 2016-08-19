@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var config = require('./config');
 
 module.exports = {
   devtool: 'eval',
@@ -19,7 +20,10 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('development')
       },
-      '__DEVTOOLS__': process.env.DEVTOOLS === 'true' ? true : false
+      '__DEVTOOLS__': process.env.DEVTOOLS === 'true' ? true : false,
+      config: {
+        base_path: JSON.stringify(config.get('base_path'))
+      }
     }),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin("styles.css", {

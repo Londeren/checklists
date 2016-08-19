@@ -1,5 +1,4 @@
 'use strict';
-import config from '../../config/config.json';
 import fetch from 'isomorphic-fetch';
 
 import { LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR } from '../constants/ActionTypes';
