@@ -10,6 +10,29 @@ import {Templates} from '../services/templates';
 import {ROUTE_LISTS_VIEW_LIST } from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
 
+const propTypes = {
+  templates: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }).isRequired
+    ).isRequired
+  }).isRequired).isRequired,
+  lists: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      done: PropTypes.bool.isRequired
+    }).isRequired).isRequired
+  }).isRequired).isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 class ListsIndex extends Component {
   constructor(props) {
@@ -49,29 +72,10 @@ class ListsIndex extends Component {
 
 
 export default connect((state) => {
-  return {...state};
+  return {
+    templates: state.templates,
+    lists: state.lists
+  };
 })(ListsIndex);
 
-ListsIndex.propTypes = {
-  templates: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        done: PropTypes.bool.isRequired
-      }).isRequired
-    ).isRequired
-  }).isRequired).isRequired,
-  lists: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      done: PropTypes.bool.isRequired
-    }).isRequired).isRequired
-  }).isRequired).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
+ListsIndex.propTypes = propTypes;

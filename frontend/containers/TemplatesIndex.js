@@ -6,6 +6,21 @@ import TemplateList from '../components/templates/TemplateList';
 import {ROUTE_TEMPLATES_CREATE} from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
 
+const propTypes = {
+  templates: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }).isRequired).isRequired
+    }).isRequired
+  ).isRequired,
+  dispatch: PropTypes.func.isRequired
+};
+
 class TemplatesIndex extends Component {
   constructor(props) {
     super(props);
@@ -29,20 +44,9 @@ class TemplatesIndex extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {
+    templates: state.templates
+  };
 })(TemplatesIndex);
 
-TemplatesIndex.propTypes = {
-  templates: PropTypes.arrayOf(
-      PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      items: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        done: PropTypes.bool.isRequired
-      }).isRequired).isRequired
-    }).isRequired
-  ).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
+TemplatesIndex.propTypes = propTypes;

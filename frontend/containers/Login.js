@@ -27,5 +27,7 @@ class Login extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {
+    authUser: state.authUser
+  };
 })(Login);

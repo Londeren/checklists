@@ -9,6 +9,11 @@ const propTypes = {
     link: PropTypes.string.isRequired,
     isActive: PropTypes.bool.isRequired
   }).isRequired).isRequired,
+  authUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    isAuthorized: PropTypes.bool.isRequired
+  }).isRequired,
   children: PropTypes.object
 };
 
@@ -39,7 +44,10 @@ class App extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {
+    topMenu: state.topMenu,
+    authUser: state.authUser
+  };
 })(App);
 
 App.propTypes = propTypes;

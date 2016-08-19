@@ -6,6 +6,10 @@ import TemplateForm from '../components/templates/TemplateForm';
 import {ROUTE_TEMPLATES_TEMPLATES} from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
 
+const propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
+
 class TemplateCreate extends Component {
   constructor(props) {
     super(props);
@@ -27,9 +31,7 @@ class TemplateCreate extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {};
 })(TemplateCreate);
 
-TemplateCreate.propTypes = {
-  dispatch: PropTypes.func.isRequired
-};
+TemplateCreate.propTypes = propTypes;

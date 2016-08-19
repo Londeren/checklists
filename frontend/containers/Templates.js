@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+const propTypes = {
+  children: PropTypes.node
+};
 
 class Templates extends Component {
   constructor(props) {
@@ -19,9 +22,7 @@ class Templates extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {};
 })(Templates);
 
-Templates.propTypes = {
-  children: PropTypes.node
-};
+Templates.propTypes = propTypes;

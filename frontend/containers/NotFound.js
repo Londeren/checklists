@@ -13,5 +13,5 @@ class List extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {};
 })(List);

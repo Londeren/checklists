@@ -9,6 +9,23 @@ import isEmpty from 'lodash/isEmpty';
 import {ROUTE_TEMPLATES_TEMPLATES} from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
 
+const propTypes = {
+  params: PropTypes.shape({
+    templateId: PropTypes.string.isRequired
+  }).isRequired,
+  templates: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }).isRequired).isRequired
+    }).isRequired
+  ).isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 class Template extends Component {
   constructor(props) {
@@ -41,23 +58,9 @@ class Template extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {
+    templates: state.templates
+  }
 })(Template);
 
-Template.propTypes = {
-  params: PropTypes.shape({
-    templateId: PropTypes.string.isRequired
-  }).isRequired,
-  templates: PropTypes.arrayOf(
-      PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      items: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        done: PropTypes.bool.isRequired
-      }).isRequired).isRequired
-    }).isRequired
-  ).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
+Template.propTypes = propTypes;

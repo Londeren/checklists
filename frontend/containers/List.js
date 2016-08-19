@@ -10,6 +10,23 @@ import {Templates} from '../services/templates';
 import {ROUTE_LISTS_LISTS} from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
 
+const propTypes = {
+  params: PropTypes.shape({
+    listId: PropTypes.string.isRequired
+  }).isRequired,
+  lists: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }).isRequired).isRequired
+    }).isRequired
+  ).isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 class List extends Component {
   constructor(props) {
@@ -41,23 +58,9 @@ class List extends Component {
 }
 
 export default connect((state) => {
-  return {...state};
+  return {
+    lists: state.lists
+  };
 })(List);
 
-List.propTypes = {
-  params: PropTypes.shape({
-    listId: PropTypes.string.isRequired
-  }).isRequired,
-  lists: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      items: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        done: PropTypes.bool.isRequired
-      }).isRequired).isRequired
-    }).isRequired
-  ).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
+List.propTypes = propTypes;
