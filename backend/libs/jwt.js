@@ -1,4 +1,3 @@
-'use strict';
 import jwt from 'jsonwebtoken';
 import Promise from 'bluebird';
 import config from '../../config';

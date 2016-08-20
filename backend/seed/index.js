@@ -13,7 +13,7 @@ export default function(connection) {
   return dropDatabase(connection)
     .then(() => Promise.all([createTemplates(), createLists(), createUsers()]))
     .then(() => log.info('Database seeded'))
-};
+}
 
 function dropDatabase(connection) {
   return new Promise((res, rej) => {

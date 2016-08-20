@@ -1,4 +1,4 @@
-import {expect, should} from 'chai';
+import {expect} from 'chai';
 import supertest from 'supertest-as-promised';
 import find from 'lodash/find';
 import {connect, disconnect, mongoose} from '../../libs/db';

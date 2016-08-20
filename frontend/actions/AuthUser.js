@@ -1,7 +1,7 @@
 'use strict';
 import fetch from 'isomorphic-fetch';
 
-import { LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR } from '../constants/ActionTypes';
+import {LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR} from '../constants/ActionTypes';
 
 export function login(creds) {
   return dispatch => {
@@ -18,14 +18,15 @@ export function login(creds) {
       body: JSON.stringify(creds)
     })
       .then(response => response.json())
-      .then(user =>
-        dispatch({
-            type: LOGIN_COMPLETED,
-            id: user.id,
-            login: user.login,
-            token: token
-          }
-        )
+      .then(user => {
+          dispatch({
+              type: LOGIN_COMPLETED,
+              id: user.id,
+              login: user.login,
+              token: token
+            }
+          );
+        }
       )
       .catch(error => dispatch({
           type: LOGIN_ERROR,

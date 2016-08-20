@@ -1,5 +1,4 @@
 import Template from '../../models/Template';
-import List from '../../models/List';
 import HttpError from '../errors/HttpError';
 
 export default class Templates {

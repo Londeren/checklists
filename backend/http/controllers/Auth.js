@@ -1,4 +1,3 @@
-'use strict';
 import User from '../../models/User';
 import HttpError from '../errors/HttpError';
 

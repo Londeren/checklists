@@ -1,5 +1,3 @@
-'use strict';
-
 import User from '../../models/User';
 import {verify} from '../../libs/jwt';
 
