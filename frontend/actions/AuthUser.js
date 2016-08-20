@@ -7,9 +7,6 @@ export function login(creds) {
   return dispatch => {
     dispatch({
       type: LOGIN_STARTED,
-      isFetching: true,
-      isAuthorized: false,
-      creds
     });
 
     return fetch(`${config.base_path}/auth/login`, {
@@ -24,16 +21,14 @@ export function login(creds) {
       .then(user =>
         dispatch({
             type: LOGIN_COMPLETED,
-            isFetching: false,
-            isAuthorized: true,
-            login: user.login
+            id: user.id,
+            login: user.login,
+            token: token
           }
         )
       )
       .catch(error => dispatch({
           type: LOGIN_ERROR,
-          isFetching: false,
-          isAuthorized: false,
           error
         }
       ));
