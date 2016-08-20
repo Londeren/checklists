@@ -1,6 +1,4 @@
 import Promise from 'bluebird';
-import {connect, disconnect, mongoose} from '../libs/db';
-import config from '../../config';
 import logger from '../libs/logger';
 import Template from '../models/Template';
 import List from '../models/List';

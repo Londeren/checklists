@@ -18,7 +18,7 @@ describe('Templates controller', () => {
   beforeEach(async() => {
     await seed(mongoose.connection);
 
-    const seedUser = find(seedUsers, {login: 'admin'});
+    const seedUser = find(seedUsers, {login: 'Admin'});
     const user = await User.findOne({login: seedUser.login});
 
     accessToken = user.generateToken();
