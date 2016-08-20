@@ -5,7 +5,8 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "parser": "babel-eslint",
   "rules": {
@@ -19,7 +20,10 @@
     /* MOCHA */
     "describe"   : false,
     "it"         : false,
+    "before" : false,
+    "beforeEach" : false,
     "afterEach" : false,
+    "after" : false
   },
   "plugins": [
     "react"
