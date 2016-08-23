@@ -5,10 +5,10 @@ function inMemoryStorage() {
   let storage = {};
 
   return {
-    set: function set(key, value) {
+    setItem: function setItem(key, value) {
       storage[key] = value;
     },
-    get: function get(key) {
+    getItem: function getItem(key) {
       return storage[key];
     }
   }
@@ -17,11 +17,12 @@ function inMemoryStorage() {
 
 const userStore = {
   save: function save(user) {
-    storage.set(STORAGE_USER_KEY, JSON.stringify(user));
+    console.log(storage);
+    storage.setItem(STORAGE_USER_KEY, JSON.stringify(user));
   },
   get: function get() {
     try {
-      return JSON.parse(storage.get(STORAGE_USER_KEY));
+      return JSON.parse(storage.getItem(STORAGE_USER_KEY));
     } catch(err) {
       return undefined;
     }
