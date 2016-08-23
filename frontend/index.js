@@ -12,6 +12,8 @@ import Root from './containers/Root';
 import rootReducer from './reducers';
 const createHistory = require('history/lib/createHashHistory');
 import DevTools from './containers/DevTools';
+import {LOGIN_COMPLETED} from './constants/ActionTypes';
+import userStore from './services/authUserStore';
 
 
 const history = createHistory();
@@ -34,6 +36,17 @@ if (__DEVTOOLS__) {
   reduxRouterMiddleware.listenForReplays(store);
 }
 
+const authUser = userStore.get();
+
+if (authUser && authUser.token !== undefined) {
+  store.dispatch({
+      type: LOGIN_COMPLETED,
+      id: authUser.user.id,
+      login: authUser.user.logout,
+      token: authUser.token
+    }
+  );
+}
 
 ReactDOM.render(
     <Root store={store} history={history} />,
