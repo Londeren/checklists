@@ -10,6 +10,9 @@ function inMemoryStorage() {
     },
     getItem: function getItem(key) {
       return storage[key];
+    },
+    removeItem: function removeItem(key) {
+      delete storage[key];
     }
   }
 }
@@ -17,7 +20,6 @@ function inMemoryStorage() {
 
 const userStore = {
   save: function save(user) {
-    console.log(storage);
     storage.setItem(STORAGE_USER_KEY, JSON.stringify(user));
   },
   get: function get() {
@@ -26,6 +28,9 @@ const userStore = {
     } catch(err) {
       return undefined;
     }
+  },
+  delete: function remove() {
+    storage.removeItem(STORAGE_USER_KEY);
   }
 };
 

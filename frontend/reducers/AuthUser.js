@@ -1,5 +1,5 @@
 'use strict';
-import {LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR} from '../constants/ActionTypes';
+import {LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR, LOGOUT_COMPLETED} from '../constants/ActionTypes';
 
 
 export const defaultState = {
@@ -30,6 +30,10 @@ export default function(state = defaultState, action) {
       return {
         ...defaultState,
         error: action.error
+      };
+    case LOGOUT_COMPLETED:
+      return {
+        ...defaultState
       };
     default:
       return state;

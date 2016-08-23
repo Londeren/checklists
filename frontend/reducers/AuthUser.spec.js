@@ -2,7 +2,8 @@
 
 import {expect} from 'chai';
 import reducer, {defaultState} from './AuthUser';
-import { LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR } from '../constants/ActionTypes';
+import { LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR, LOGOUT_COMPLETED } from '../constants/ActionTypes';
+
 
 describe('AuthUser reducer', () => {
   it('should return the initial state', () => {
@@ -51,6 +52,20 @@ describe('AuthUser reducer', () => {
     expect(reducer(undefined, action)).to.eql(expected);
   });
 
+  it('should handle LOGOUT_COMPLETED', () => {
+    const action = {
+      type: LOGOUT_COMPLETED
+    };
+    const state = {
+      ...defaultState,
+      id: 'test',
+      login: 'test',
+      token: 'test',
+      isAuthorized: true
+    };
+
+    expect(reducer(state, action)).to.eql(defaultState);
+  });
 
 
 
