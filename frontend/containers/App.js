@@ -10,7 +10,14 @@ const propTypes = {
     isActive: PropTypes.bool.isRequired
   }).isRequired).isRequired,
   authUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    login: PropTypes.string,
+    token: PropTypes.string,
+    error: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.array,
+      React.PropTypes.object
+    ]),
     isFetching: PropTypes.bool.isRequired,
     isAuthorized: PropTypes.bool.isRequired
   }).isRequired,
