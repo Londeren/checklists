@@ -17,17 +17,13 @@ import Login from './Login';
 
 import {loadTemplates} from '../services/templates';
 import {loadLists} from '../services/lists';
+import {requiredAuth} from '../components/RequiredAuth';
+import Logout from './Logout';
 
 
 export default class Root extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    // load templates at startup
-    loadTemplates(this.props.store)();
-    loadLists(this.props.store)();
   }
 
   render() {
@@ -43,16 +39,17 @@ export default class Root extends Component {
           {devTools}
           <Router history={this.props.history}>
             <Route path="/" component={App}>
-              <Route path="templates" component={Templates}>
+              <Route path="templates" component={requiredAuth(Templates)}>
                 <IndexRoute component={TemplatesIndex} />
                 <Route path="create" component={TemplateCreate} />
                 <Route path="view/:templateId" component={Template} />
               </Route>
-              <Route path="lists" component={Lists}>
+              <Route path="lists" component={requiredAuth(Lists)}>
                 <IndexRoute component={ListsIndex} />
                 <Route path="view/:listId" component={List} />
               </Route>
               <Route path='login' component={Login} />
+              <Route path='logout' component={Logout} />
               <Route path="*" status={404} component={NotFound} />
             </Route>
           </Router>
