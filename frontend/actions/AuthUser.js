@@ -1,7 +1,7 @@
 'use strict';
 import fetch from 'isomorphic-fetch';
 
-import {LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR} from '../constants/ActionTypes';
+import {LOGIN_STARTED, LOGIN_COMPLETED, LOGIN_ERROR, LOGOUT_COMPLETED} from '../constants/ActionTypes';
 import userStore from '../services/authUserStore';
 
 export function login(creds) {
@@ -36,5 +36,13 @@ export function login(creds) {
           error
         }
       ));
+  }
+}
+
+export function logout() {
+  userStore.delete();
+
+  return {
+    type: LOGOUT_COMPLETED
   }
 }

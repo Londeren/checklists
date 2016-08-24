@@ -11,8 +11,8 @@ class Login extends Component {
 
   login() {
     this.props.dispatch(login({
-      login: 'test',
-      password: 'test'
+      login: 'admin',
+      password: '111'
     }));
   }
 
