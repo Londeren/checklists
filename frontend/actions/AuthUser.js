@@ -22,6 +22,12 @@ export function login(creds, nextUrl = ROUTE_INDEX) {
       body: JSON.stringify(creds)
     })
       .then(response => response.json())
+      .then(function checkError(response) {
+        if (!response.error) {
+          return response;
+        }
+        throw new Error(response.error.message);
+      })
       .then(user => {
           userStore.save(user);
 
@@ -38,9 +44,9 @@ export function login(creds, nextUrl = ROUTE_INDEX) {
       )
       .catch(error => dispatch({
           type: LOGIN_ERROR,
-          error
-        }
-      ));
+          error: error.message
+        })
+      );
   }
 }
 
