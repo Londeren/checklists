@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions/AuthUser';
+import {ROUTE_INDEX} from '../constants/routes';
 
 class Login extends Component {
   constructor(props) {
@@ -10,10 +11,12 @@ class Login extends Component {
   }
 
   login() {
+    const nextUrl = this.props.location.query.next || ROUTE_INDEX;
+
     this.props.dispatch(login({
       login: 'admin',
       password: '111'
-    }));
+    }, nextUrl));
   }
 
   render() {
