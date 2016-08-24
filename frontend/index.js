@@ -42,7 +42,7 @@ if (authUser && authUser.token !== undefined) {
   store.dispatch({
       type: LOGIN_COMPLETED,
       id: authUser.user.id,
-      login: authUser.user.logout,
+      login: authUser.user.login,
       token: authUser.token
     }
   );
