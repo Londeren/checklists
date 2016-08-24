@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Checklists based on templates",
   "scripts": {
-    "backend": "NODE_ENV=development nodemon backend/index.js",
+    "backend": "NODE_ENV=development nodemon --watch backend backend/index.js",
     "seedDB": "NODE_ENV=development node backend/seedDb.js",
     "start": "node server.js | npm run backend",
     "start:devtools": "DEVTOOLS=true node server.js | npm run backend",
