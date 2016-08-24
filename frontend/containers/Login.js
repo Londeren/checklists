@@ -1,7 +1,22 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions/AuthUser';
 import {ROUTE_INDEX} from '../constants/routes';
+
+const propTypes = {
+  authUser: PropTypes.shape({
+    id: PropTypes.string,
+    login: PropTypes.string,
+    token: PropTypes.string,
+    error: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.array,
+      React.PropTypes.object
+    ]),
+    isFetching: PropTypes.bool.isRequired,
+    isAuthorized: PropTypes.bool.isRequired
+  }).isRequired
+};
 
 class Login extends Component {
   constructor(props) {
@@ -60,3 +75,5 @@ export default connect((state) => {
     authUser: state.authUser
   };
 })(Login);
+
+Login.propTypes = propTypes;
