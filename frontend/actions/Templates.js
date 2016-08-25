@@ -6,6 +6,7 @@ import {
   TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED, TEMPLATE_STORE_ERROR,
   TEMPLATE_UPDATE_STARTED, TEMPLATE_UPDATE_COMPLETED, TEMPLATE_UPDATE_ERROR,
 } from '../constants/ActionTypes';
+import {setAuthToken} from '../services/authUser';
 
 
 export const addTemplate = (name, items) => ({
@@ -16,27 +17,33 @@ export const addTemplate = (name, items) => ({
 });
 
 export function updateTemplate(id, name, items) {
-  return dispatch => {
-    dispatch(updateStarted());
+  return (dispatch, store)=> {
+    dispatch({
+      type: TEMPLATE_UPDATE_STARTED
+    });
 
-    return fetch(`${config.base_path}/api/templates`, {
+    const {authUser: {token}} = store();
+
+    return fetch(`${config.base_path}/api/templates`, setAuthToken(store, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({id, name, items})
-    }).then(response => response.json())
+    })).then(response => response.json())
       .then(json => dispatch(updateCompleted(json)))
       .catch(error => dispatch(updateError(error)));
   }
 }
 
 export function fetchTemplates() {
-  return dispatch => {
-    dispatch(requestTemplates());
+  return (dispatch, store) => {
+    dispatch({
+      type: TEMPLATE_FETCH_STARTED
+    });
 
-    return fetch(`${config.base_path}/api/templates`)
+    return fetch(`${config.base_path}/api/templates`, setAuthToken(store))
       .then(response => response.json())
       .then(json => dispatch(receiveTemplates(json.templates)))
       .catch(error => dispatch(errorTemplates(error)));
@@ -44,25 +51,23 @@ export function fetchTemplates() {
 }
 
 export function storeTemplate(name, items) {
-  return dispatch => {
-    dispatch(storeStarted());
+  return (dispatch, store) => {
+    dispatch({
+      type: TEMPLATE_STORE_STARTED
+    });
 
-    return fetch(`${config.base_path}/api/templates`, {
+    return fetch(`${config.base_path}/api/templates`, setAuthToken(store, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({name, items})
-    }).then(response => response.json())
+    })).then(response => response.json())
       .then(json => dispatch(storeCompleted(json)))
       .catch(error => dispatch(storeError(error)));
   }
 }
-
-const requestTemplates = () => ({
-  type: TEMPLATE_FETCH_STARTED
-});
 
 const receiveTemplates = json => ({
   type: TEMPLATE_FETCH_COMPLETED,
@@ -75,10 +80,6 @@ const errorTemplates = error => ({
   error: error
 });
 
-const storeStarted = () => ({
-  type: TEMPLATE_STORE_STARTED
-});
-
 const storeCompleted = template => ({
   type: TEMPLATE_STORE_COMPLETED,
   ...template
@@ -89,9 +90,6 @@ const storeError = error => ({
   error: error
 });
 
-const updateStarted = () => ({
-  type: TEMPLATE_UPDATE_STARTED
-});
 
 const updateCompleted = template => ({
   type: TEMPLATE_UPDATE_COMPLETED,

@@ -62,7 +62,7 @@ describe('Templates actions', () => {
         {type: TEMPLATE_UPDATE_STARTED},
         {type: TEMPLATE_UPDATE_COMPLETED, ...setupTemplate}
       ];
-      const store = mockStore({templates: [setupTemplate]});
+      const store = mockStore({templates: [setupTemplate], authUser: {token: 'test'}});
 
       store.dispatch(updateTemplate(setupTemplate.id, setupTemplate.name, setupTemplate.items))
         .then(() => {
@@ -105,7 +105,7 @@ describe('Templates actions', () => {
         {type: TEMPLATE_FETCH_STARTED},
         {type: TEMPLATE_FETCH_COMPLETED, templates: setupTemplates.templates}
       ];
-      const store = mockStore({templates: []});
+      const store = mockStore({templates: [], authUser: {token: 'test'}});
 
       store.dispatch(fetchTemplates())
         .then(() => {
@@ -142,7 +142,7 @@ describe('Templates actions', () => {
         {type: TEMPLATE_STORE_STARTED},
         {type: TEMPLATE_STORE_COMPLETED, ...setupTemplate}
       ];
-      const store = mockStore({templates: []});
+      const store = mockStore({templates: [], authUser: {token: 'test'}});
 
       store.dispatch(storeTemplate(setupTemplate.name, setupTemplate.items))
         .then(() => {
