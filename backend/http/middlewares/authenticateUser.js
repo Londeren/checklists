@@ -16,9 +16,12 @@ export default async(ctx, next) => {
   }
 
   try {
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id).exec();
     if (!user) {
       ctx.throw(401, 'User not found\n');
+    } else {
+      ctx.state = ctx.state || {};
+      ctx.state.authUser = user;
     }
   } catch(err) {
     ctx.throw(401, 'User not found\n');
