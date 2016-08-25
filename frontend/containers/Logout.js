@@ -43,4 +43,4 @@ export default connect(
     }
   }))(Logout);
 
-App.propTypes = propTypes;
+Logout.propTypes = propTypes;
