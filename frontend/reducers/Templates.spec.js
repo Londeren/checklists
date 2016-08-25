@@ -1,7 +1,12 @@
 import chai, {expect} from 'chai';
 import spies from 'chai-spies';
 import reducer from './Templates';
-import {TEMPLATE_ADD, TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
+import {
+  TEMPLATE_ADD,
+  TEMPLATE_FETCH_COMPLETED,
+  TEMPLATE_STORE_COMPLETED,
+  TEMPLATE_UPDATE_COMPLETED
+} from '../constants/ActionTypes';
 
 chai.use(spies);
 
@@ -25,11 +30,13 @@ describe('Templates reducer', () => {
       }
     ]);
 
-    expect(reducer([{
-      id: '1',
-      name: 'test',
-      items: []
-    }], {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ], {
       type: TEMPLATE_ADD,
       id: '2',
       name: 'test2',
@@ -49,7 +56,6 @@ describe('Templates reducer', () => {
   });
 
 
-
   it('should handle TEMPLATE_UPDATE_COMPLETED', () => {
     expect(reducer([], {
       type: TEMPLATE_UPDATE_COMPLETED,
@@ -58,11 +64,13 @@ describe('Templates reducer', () => {
       items: []
     })).to.be.eql([]);
 
-    expect(reducer([{
-      id: '1',
-      name: 'test',
-      items: []
-    }], {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ], {
       type: TEMPLATE_UPDATE_COMPLETED,
       id: '1',
       name: 'new name',
@@ -75,11 +83,13 @@ describe('Templates reducer', () => {
       }
     ]);
 
-    expect(reducer([{
-      id: '1',
-      name: 'test',
-      items: []
-    }], {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ], {
       type: TEMPLATE_UPDATE_COMPLETED,
       id: '2',
       name: 'new name',
@@ -92,11 +102,13 @@ describe('Templates reducer', () => {
       }
     ]);
 
-    expect(reducer([{
-      id: '1',
-      name: 'test',
-      items: [{name: 'first item'}]
-    }], {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: [{name: 'first item'}]
+      }
+    ], {
       type: TEMPLATE_UPDATE_COMPLETED,
       id: '1',
       name: 'new name',
@@ -111,17 +123,26 @@ describe('Templates reducer', () => {
   });
 
   it('should handle TEMPLATE_FETCH_COMPLETED', () => {
-    expect(reducer([{
-      id: '1',
-      name: 'test',
-      items: []
-    }], {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ], {
       type: TEMPLATE_FETCH_COMPLETED,
-      templates: [{
-        id: '2',
-        name: 'test2',
-        items: [{name: 'first item'}]
-      }]
+      templates: [
+        {
+          id: '1',
+          name: 'test',
+          items: []
+        },
+        {
+          id: '2',
+          name: 'test2',
+          items: [{name: 'first item'}]
+        }
+      ]
     })).to.be.eql([
       {
         id: '1',
@@ -135,6 +156,32 @@ describe('Templates reducer', () => {
       }
     ]);
   });
+
+  it('should handle TEMPLATE_FETCH_COMPLETED with existing template', () => {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ], {
+      type: TEMPLATE_FETCH_COMPLETED,
+      templates: [
+        {
+          id: '1',
+          name: 'test1',
+          items: [{name: 'first item'}]
+        }
+      ]
+    })).to.be.eql([
+      {
+        id: '1',
+        name: 'test1',
+        items: [{name: 'first item'}]
+      }
+    ]);
+  });
+
 
   it('should handle TEMPLATE_STORE_COMPLETED', () => {
     expect(reducer([], {
@@ -150,11 +197,13 @@ describe('Templates reducer', () => {
       }
     ]);
 
-    expect(reducer([{
-      id: '1',
-      name: 'test',
-      items: []
-    }], {
+    expect(reducer([
+      {
+        id: '1',
+        name: 'test',
+        items: []
+      }
+    ], {
       type: TEMPLATE_STORE_COMPLETED,
       id: '2',
       name: 'test2',
@@ -172,7 +221,6 @@ describe('Templates reducer', () => {
       }
     ]);
   });
-
 
 
 });

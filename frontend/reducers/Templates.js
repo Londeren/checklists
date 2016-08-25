@@ -25,7 +25,6 @@ export default function(state = [], action) {
       });
     case TEMPLATE_FETCH_COMPLETED:
       return [
-        ...state,
         ...action.templates
       ];
     default:
