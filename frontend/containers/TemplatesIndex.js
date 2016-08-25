@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { routeActions } from 'react-router-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {routeActions} from 'react-router-redux';
 import AddItemButton from '../components/AddItemButton';
 import TemplateList from '../components/templates/TemplateList';
 import {ROUTE_TEMPLATES_CREATE} from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
+import {fetchTemplates} from '../actions/Templates';
 
 const propTypes = {
   templates: PropTypes.arrayOf(
@@ -18,24 +19,19 @@ const propTypes = {
       }).isRequired).isRequired
     }).isRequired
   ).isRequired,
-  dispatch: PropTypes.func.isRequired
+  loadTemplates: PropTypes.func.isRequired,
+  addItem: PropTypes.func.isRequired
 };
 
 class TemplatesIndex extends Component {
-  constructor(props) {
-    super(props);
-
-    this.addItem = this.addItem.bind(this);
-  }
-
-  addItem() {
-    this.props.dispatch(routeActions.push(getRouteUrl(ROUTE_TEMPLATES_CREATE)));
+  componentWillMount() {
+    this.props.loadTemplates();
   }
 
   render() {
     return (
       <div>
-        <AddItemButton onClickAction={this.addItem} buttonAdditionalClasses="btn-lg">Create template</AddItemButton>
+        <AddItemButton onClickAction={this.props.addItem} buttonAdditionalClasses="btn-lg">Create template</AddItemButton>
 
         <TemplateList items={this.props.templates} />
       </div>
@@ -43,10 +39,18 @@ class TemplatesIndex extends Component {
   }
 }
 
-export default connect((state) => {
-  return {
+export default connect(
+  (state) => ({
     templates: state.templates
-  };
-})(TemplatesIndex);
+  }),
+  (dispatch) => ({
+    loadTemplates: () => {
+      dispatch(fetchTemplates());
+    },
+    addItem: () => {
+      dispatch(routeActions.push(getRouteUrl(ROUTE_TEMPLATES_CREATE)));
+    }
+  })
+)(TemplatesIndex);
 
 TemplatesIndex.propTypes = propTypes;
