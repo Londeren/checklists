@@ -1,9 +1,11 @@
 [
   {
+    "_id": "57bf01b43740ec0fc13cbf7a",
     "login": "Admin",
     "password": "111"
   },
   {
+    "_id": "57bf01c13740ec0fc13cbf7c",
     "login": "user",
     "password": "111"
   }

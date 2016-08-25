@@ -11,7 +11,7 @@ const log = logger(module);
 
 export default function(connection) {
   return dropDatabase(connection)
-    .then(() => Promise.all([createTemplates(), createLists(), createUsers()]))
+    .then(() => Promise.all([createUsers(), createTemplates(), createLists()]))
     .then(() => log.info('Database seeded'))
 }
 
