@@ -16,27 +16,6 @@ export const addTemplate = (name, items) => ({
   items
 });
 
-export function updateTemplate(id, name, items) {
-  return (dispatch, store)=> {
-    dispatch({
-      type: TEMPLATE_UPDATE_STARTED
-    });
-
-    const {authUser: {token}} = store();
-
-    return fetch(`${config.base_path}/api/templates`, setAuthToken(store, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({id, name, items})
-    })).then(response => response.json())
-      .then(json => dispatch(updateCompleted(json)))
-      .catch(error => dispatch(updateError(error)));
-  }
-}
-
 export function fetchTemplates() {
   return (dispatch, store) => {
     dispatch({
@@ -63,9 +42,32 @@ export function storeTemplate(name, items) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({name, items})
-    })).then(response => response.json())
+    }))
+      .then(response => response.json())
       .then(json => dispatch(storeCompleted(json)))
       .catch(error => dispatch(storeError(error)));
+  }
+}
+
+export function updateTemplate(id, name, items) {
+  return (dispatch, store)=> {
+    dispatch({
+      type: TEMPLATE_UPDATE_STARTED
+    });
+
+    const {authUser: {token}} = store();
+
+    return fetch(`${config.base_path}/api/templates`, setAuthToken(store, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id, name, items})
+    }))
+      .then(response => response.json())
+      .then(json => dispatch(updateCompleted(json)))
+      .catch(error => dispatch(updateError(error)));
   }
 }
 
