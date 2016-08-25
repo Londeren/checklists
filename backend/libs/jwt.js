@@ -5,7 +5,7 @@ import config from '../../config';
 Promise.promisifyAll(jwt);
 
 export const sign = (payload) => {
-  return jwt.sign({...payload, iat: Math.floor(Date.now() / 1000)}, config.get('backend:jwt:secret'), {expiresIn: '1h'})
+  return jwt.sign({...payload, iat: Math.floor(Date.now() / 1000)}, config.get('backend:jwt:secret'));
 };
 
 export const verify = (token) => {
