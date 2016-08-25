@@ -36,6 +36,8 @@ describe('Templates controller', () => {
 
     seedTemplates.forEach((template, key) => {
       Object.keys(template).forEach((templateKey) => {
+        if(templateKey === 'user')
+          return;
         expect(response.body.templates[key][templateKey]).to.deep.equal(template[templateKey]);
       })
     });
@@ -93,6 +95,7 @@ describe('Templates controller', () => {
 
   it('should update template with proper parameters PUT /api/templates', async() => {
     let updateTemplate = seedTemplates.slice()[0];
+    delete updateTemplate.user;
     updateTemplate.name = 'New template name';
 
     const response = await api.post('/api/templates')

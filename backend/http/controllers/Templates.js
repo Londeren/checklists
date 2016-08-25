@@ -3,7 +3,7 @@ import HttpError from '../errors/HttpError';
 
 export default class Templates {
   static async index(ctx) {
-    const templates = await Template.find().exec();
+    const templates = await Template.find({user: ctx.state.authUser.id}).exec();
 
     if (!templates) {
       throw HttpError.notFound('Templates not found');
@@ -20,6 +20,7 @@ export default class Templates {
    */
   static async store(ctx, next) {
     let template = new Template(ctx.request.body);
+    template.set({user: ctx.state.authUser.id});
 
     try {
       template = await template.save();
@@ -43,7 +44,7 @@ export default class Templates {
     const requestParams = ctx.request.body;
 
     try {
-      await Template.update({id: requestParams.id}, {
+      await Template.update({id: requestParams.id, user: ctx.state.authUser.id}, {
           name: requestParams.name,
           items: requestParams.items
         },
