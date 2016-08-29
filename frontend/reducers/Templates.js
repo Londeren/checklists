@@ -1,9 +1,8 @@
-import {TEMPLATE_ADD, TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
+import {TEMPLATE_FETCH_COMPLETED, TEMPLATE_STORE_COMPLETED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
 
 export default function(state = [], action) {
   switch(action.type)
   {
-    case TEMPLATE_ADD:
     case TEMPLATE_STORE_COMPLETED:
       return [
           ...state,

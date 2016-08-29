@@ -5,7 +5,7 @@ import {expect} from 'chai';
 
 import config from '../../config';
 import {addTemplate, updateTemplate, fetchTemplates, storeTemplate} from './Templates';
-import {TEMPLATE_ADD,
+import {
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED,
   TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED,
   TEMPLATE_UPDATE_STARTED, TEMPLATE_UPDATE_COMPLETED} from '../constants/ActionTypes';
@@ -15,26 +15,6 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('Templates actions', () => {
-
-  describe('addTemplate', () => {
-
-    it('should create an action to create a template', () => {
-      const name = 'Template name';
-      const items = [
-        {
-          name: 'first item'
-        }
-      ];
-      const expectedAction = {
-        type: TEMPLATE_ADD,
-        name,
-        items
-      };
-
-      expect(addTemplate(name, items)).to.include(expectedAction);
-    });
-
-  });
 
   describe('updateTemplate', () => {
     afterEach(() => {

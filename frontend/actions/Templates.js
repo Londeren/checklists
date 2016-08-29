@@ -1,20 +1,10 @@
-import {v4 as uniqueId}  from 'node-uuid';
 import fetch from 'isomorphic-fetch';
 import {
-  TEMPLATE_ADD,
   TEMPLATE_FETCH_STARTED, TEMPLATE_FETCH_COMPLETED, TEMPLATE_FETCH_ERROR,
   TEMPLATE_STORE_STARTED, TEMPLATE_STORE_COMPLETED, TEMPLATE_STORE_ERROR,
   TEMPLATE_UPDATE_STARTED, TEMPLATE_UPDATE_COMPLETED, TEMPLATE_UPDATE_ERROR,
 } from '../constants/ActionTypes';
 import {setAuthToken} from '../services/authUser';
-
-
-export const addTemplate = (name, items) => ({
-  type: TEMPLATE_ADD,
-  id: uniqueId(),
-  name,
-  items
-});
 
 export function fetchTemplates() {
   return (dispatch, store) => {
