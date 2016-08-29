@@ -7,13 +7,13 @@ import {LIST_ADD, LIST_UPDATE,
 import {setAuthToken} from '../services/authUser';
 
 export function fetchLists() {
-  return dispatch => {
+  return (dispatch, store) => {
     dispatch({
         type: LIST_FETCH_STARTED
       }
     );
 
-    return fetch(`${config.base_path}/api/lists`)
+    return fetch(`${config.base_path}/api/lists`, setAuthToken(store))
       .then(response => response.json())
       .then(json =>
         dispatch(receiveLists(json.lists))
