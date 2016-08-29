@@ -16,7 +16,8 @@ const apiRouter = new Router({
   .get('/templates', Templates.index)
   .post('/templates', Templates.store)
   .put('/templates', Templates.update)
-  .get('/lists', Lists.index);
+  .get('/lists', Lists.index)
+  .post('/lists', Lists.store);
 
 const authRouter = new Router({
   prefix: '/auth'
