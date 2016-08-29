@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import AddListLink from '../components/lists/AddListLink';
 import ListList from '../components/lists/ListList';
-import {addList} from '../actions/Lists';
+import {storeList, fetchLists} from '../actions/Lists';
 import {Templates} from '../services/templates';
 import {ROUTE_LISTS_VIEW_LIST } from '../constants/routes';
 import {getRouteUrl} from '../services/routes';
@@ -31,7 +31,9 @@ const propTypes = {
       done: PropTypes.bool.isRequired
     }).isRequired).isRequired
   }).isRequired).isRequired,
-  dispatch: PropTypes.func.isRequired
+  loadLists: PropTypes.func.isRequired,
+  addList: PropTypes.func.isRequired,
+  redirectToList: PropTypes.func.isRequired
 };
 
 class ListsIndex extends Component {
@@ -49,14 +51,19 @@ class ListsIndex extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.loadLists();
+  }
+
   addItem(templateId) {
     const tpl = Templates(this.props.templates).getById(templateId);
 
     if (!isEmpty(tpl)) {
-      const addListAction = addList(tpl);
+      const redirectToList = list => {
+        this.props.redirectToList(list.id);
+      };
 
-      this.props.dispatch(addListAction);
-      this.props.dispatch(routeActions.push(getRouteUrl(ROUTE_LISTS_VIEW_LIST, {listId: addListAction.id})));
+      this.props.addList(tpl.id, tpl.name, tpl.items, redirectToList);
     }
   }
 
@@ -71,11 +78,24 @@ class ListsIndex extends Component {
 }
 
 
-export default connect((state) => {
+export default connect(
+  (state) => {
   return {
     templates: state.templates,
     lists: state.lists
   };
-})(ListsIndex);
+},
+  (dispatch) => ({
+    loadLists: () => {
+      dispatch(fetchLists());
+    },
+    addList: (templateId, name, items, action) => {
+      dispatch(storeList(templateId, name, items, action));
+    },
+    redirectToList: listId => {
+      dispatch(routeActions.push(getRouteUrl(ROUTE_LISTS_VIEW_LIST, {listId})));
+    }
+  })
+)(ListsIndex);
 
 ListsIndex.propTypes = propTypes;
