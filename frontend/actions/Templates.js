@@ -35,7 +35,10 @@ export function storeTemplate(name, items) {
     }))
       .then(response => response.json())
       .then(json => dispatch(storeCompleted(json)))
-      .catch(error => dispatch(storeError(error)));
+      .catch(error => dispatch({
+        type: TEMPLATE_STORE_ERROR,
+        error: error
+      }));
   }
 }
 
@@ -75,11 +78,6 @@ const errorTemplates = error => ({
 const storeCompleted = template => ({
   type: TEMPLATE_STORE_COMPLETED,
   ...template
-});
-
-const storeError = error => ({
-  type: TEMPLATE_STORE_ERROR,
-  error: error
 });
 
 

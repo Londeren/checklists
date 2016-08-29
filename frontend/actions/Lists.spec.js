@@ -35,7 +35,7 @@ describe('Lists actions', () => {
 
   });
 
-  describe('updateTemplate', () => {
+  describe('updateList', () => {
     it('should create action with type LIST_UPDATE', () => {
       const setupUpdateList = {
         id: '1',
@@ -58,7 +58,6 @@ describe('Lists actions', () => {
     });
 
   });
-
 
 
 });
