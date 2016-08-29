@@ -1,8 +1,7 @@
-import {LIST_ADD, LIST_UPDATE, LIST_FETCH_COMPLETED} from '../constants/ActionTypes';
+import {LIST_ADD, LIST_UPDATE, LIST_FETCH_COMPLETED, LIST_STORE_COMPLETED} from '../constants/ActionTypes';
 
 export default function(state = [], action) {
-  switch(action.type)
-  {
+  switch (action.type) {
     case LIST_ADD:
       return [
         ...state,
@@ -27,6 +26,16 @@ export default function(state = [], action) {
       return [
         ...state,
         ...action.lists
+      ];
+    case LIST_STORE_COMPLETED:
+      return [
+        ...state,
+        {
+          id: action.id,
+          templateId: action.templateId,
+          name: action.name,
+          items: action.items
+        }
       ];
     default:
       return state;
