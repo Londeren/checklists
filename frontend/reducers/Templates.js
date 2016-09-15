@@ -20,7 +20,7 @@ export default function(state = [], action) {
             items: action.items
           })
         }
-        return template
+        return template;
       });
     case TEMPLATE_FETCH_COMPLETED:
       return [
