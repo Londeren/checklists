@@ -2,7 +2,8 @@ import {v4 as uniqueId}  from 'node-uuid';
 import fetch from 'isomorphic-fetch';
 import {LIST_ADD, LIST_UPDATE,
   LIST_FETCH_STARTED, LIST_FETCH_COMPLETED, LIST_FETCH_ERROR,
-  LIST_STORE_STARTED, LIST_STORE_COMPLETED, LIST_STORE_ERROR
+  LIST_STORE_STARTED, LIST_STORE_COMPLETED, LIST_STORE_ERROR,
+  LIST_UPDATE_STARTED, LIST_UPDATE_COMPLETED, LIST_UPDATE_ERROR
 } from '../constants/ActionTypes';
 import {setAuthToken} from '../services/authUser';
 
@@ -16,7 +17,10 @@ export function fetchLists() {
     return fetch(`${config.base_path}/api/lists`, setAuthToken(store))
       .then(response => response.json())
       .then(json =>
-        dispatch(receiveLists(json.lists))
+        dispatch({
+          type: LIST_FETCH_COMPLETED,
+          lists: json.lists
+        })
       )
       .catch(error => dispatch({
           type: LIST_FETCH_ERROR,
@@ -49,8 +53,11 @@ export function storeList(templateId, name, items, action = undefined) {
       body: JSON.stringify({templateId, name, items})
     }))
       .then(response => response.json())
-      .then(json => {
-        const actionObject = storeCompleted(json);
+      .then(list => {
+        const actionObject = {
+          type: LIST_STORE_COMPLETED,
+          ...list
+        };
         dispatch(actionObject);
 
         if(typeof action === 'function') {
@@ -64,25 +71,35 @@ export function storeList(templateId, name, items, action = undefined) {
   }
 }
 
-export function addList({id, name, items}) {
-  items = items.map(item => {
-    return {
-      id: uniqueId(),
-      name: item.name,
-      done: item.done
-    }
-  });
+export function updateList(id, name, items) {
+  return (dispatch, store)=> {
+    dispatch({
+      type: LIST_UPDATE_STARTED
+    });
 
-  return {
-    type: LIST_ADD,
-    id: uniqueId(),
-    templateId: id,
-    name,
-    items
-  };
+    const {authUser: {token}} = store();
+
+    return fetch(`${config.base_path}/api/lists`, setAuthToken(store, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id, name, items})
+    }))
+      .then(response => response.json())
+      .then(list => dispatch({
+        type: LIST_UPDATE_COMPLETED,
+        ...list
+      }))
+      .catch(error => dispatch({
+        type: LIST_UPDATE_ERROR,
+        error: error
+      }));
+  }
 }
 
-export function updateList(id, name, items) {
+export function updateListSync(id, name, items) {
   return {
     type: LIST_UPDATE,
     id,
@@ -90,15 +107,3 @@ export function updateList(id, name, items) {
     items
   }
 }
-
-
-function receiveLists(lists) {
-  return {
-    type: LIST_FETCH_COMPLETED,
-    lists
-  }
-}
-const storeCompleted = list => ({
-  type: LIST_STORE_COMPLETED,
-  ...list
-});
