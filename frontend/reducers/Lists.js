@@ -17,6 +17,16 @@ export default function(state = [], action) {
           items: action.items
         }
       ];
+    case LIST_UPDATE_COMPLETED:
+      return state.map((list) => {
+        if (list.id === action.id) {
+          return Object.assign({}, list, {
+            name: action.name,
+            items: action.items
+          })
+        }
+        return list;
+      });
     default:
       return state;
   }
