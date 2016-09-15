@@ -26,7 +26,6 @@ export default class Lists {
       list = await list.save();
     } catch(err) {
       if (err.name === 'ValidationError') {
-
         throw HttpError.badRequest({message: err.message, errors: err.errors})
       } else {
         return next(err);
@@ -40,29 +39,28 @@ export default class Lists {
    * @param ctx
    * @param next
    */
-  /*static async update(ctx, next) {
+  static async update(ctx, next) {
     const requestParams = ctx.request.body;
 
     try {
-      await Template.update({id: requestParams.id, user: ctx.state.authUser.id}, {
+      await List.update({id: requestParams.id, user: ctx.state.authUser.id}, {
           name: requestParams.name,
           items: requestParams.items
         },
         {runValidators: true}).exec();
     } catch(err) {
       if (err.name === 'ValidationError') {
-
         throw HttpError.badRequest({message: err.message, errors: err.errors})
       } else {
         return next(err);
       }
     }
 
-    const template = await Template.findOne({id: requestParams.id}).exec();
-    if (!template) {
-      throw HttpError.notFound('Template not found');
+    const list = await List.findOne({id: requestParams.id}).exec();
+    if (!list) {
+      throw HttpError.notFound('List not found');
     }
 
-    ctx.body = template;
-  }*/
+    ctx.body = list;
+  }
 }
