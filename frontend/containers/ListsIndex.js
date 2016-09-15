@@ -89,8 +89,8 @@ export default connect(
     loadLists: () => {
       dispatch(fetchLists());
     },
-    addList: (templateId, name, items, action) => {
-      dispatch(storeList(templateId, name, items, action));
+    addList: (templateId, name, items, redirectAction) => {
+      dispatch(storeList(templateId, name, items, redirectAction));
     },
     redirectToList: listId => {
       dispatch(routeActions.push(getRouteUrl(ROUTE_LISTS_VIEW_LIST, {listId})));
