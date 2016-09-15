@@ -4,7 +4,6 @@ export default function(state = [], action) {
   switch (action.type) {
     case LIST_FETCH_COMPLETED:
       return [
-        ...state,
         ...action.lists
       ];
     case LIST_STORE_COMPLETED:

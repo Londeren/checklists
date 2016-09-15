@@ -26,7 +26,6 @@ describe('Templates reducer', () => {
     };
 
     const expected = [
-      ...state,
       ...action.lists
     ];
 
