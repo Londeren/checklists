@@ -1,6 +1,5 @@
-import {v4 as uniqueId}  from 'node-uuid';
 import fetch from 'isomorphic-fetch';
-import {LIST_ADD, LIST_UPDATE,
+import {
   LIST_FETCH_STARTED, LIST_FETCH_COMPLETED, LIST_FETCH_ERROR,
   LIST_STORE_STARTED, LIST_STORE_COMPLETED, LIST_STORE_ERROR,
   LIST_UPDATE_STARTED, LIST_UPDATE_COMPLETED, LIST_UPDATE_ERROR
@@ -96,14 +95,5 @@ export function updateList(id, name, items) {
         type: LIST_UPDATE_ERROR,
         error: error
       }));
-  }
-}
-
-export function updateListSync(id, name, items) {
-  return {
-    type: LIST_UPDATE,
-    id,
-    name,
-    items
   }
 }
